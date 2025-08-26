@@ -1,33 +1,23 @@
-﻿using OxyPlot;
+﻿using DeepSigma.WinUI.Charting;
+using DeepSigma.WinUI.Charting.Enum;
+using OxyPlot;
+using OxyPlot.Axes;
 using OxyPlot.Series;
-using System;
-using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
+using System;
+using Windows.Media.Audio;
+using DeepSigma.WinUI.Charting.DataModels;
+using System.Collections.Generic;
 
 namespace DeepSigma.WinUI
 {
-    internal class ChartingUtility
+    public static class ChartingUtility
     {
-        public void Plot(PlotView plot_view, string title)
-        {
-            var plotModel = new PlotModel { Title = title };
 
-            var series = new LineSeries
-            {
-                Title = "y = x²",
-                MarkerType = MarkerType.Circle
-            };
 
-            for (int x = -5; x <= 5; x++)
-            {
-                series.Points.Add(new DataPoint(x, x * x));
-            }
-
-            plotModel.Series.Add(series);
-
-            plot_view.Model = plotModel;
-        }
+       
+       
     }
 }

@@ -19,6 +19,9 @@ using WinUI.TableView;
 
 namespace DeepSigma.WinUI
 {
+    /// <summary>
+    /// A user control that hosts a TableView.
+    /// </summary>
     public sealed partial class TableViewControl : UserControl
     {
         /// <summary>
@@ -27,7 +30,35 @@ namespace DeepSigma.WinUI
         public TableViewControl()
         {
             InitializeComponent();
-            MyTableView.ItemsSource = new MainViewModel().Items;
+        }
+
+        /// <summary>
+        /// Adds an item to the TableView's ItemsSource.
+        /// </summary>
+        /// <param name="item"></param>
+        public void Add(object item)
+        {
+            MyTableView?.ItemsSource?.Add(item);
+        }
+
+        /// <summary>
+        /// Adds multiple items to the TableView's ItemsSource.
+        /// </summary>
+        /// <param name="items"></param>
+        public void Add(IEnumerable<object> items)
+        {
+            foreach (var item in items)
+            {
+                MyTableView?.ItemsSource?.Add(item);
+            }
+        }
+
+        /// <summary>
+        /// Removes all items from the TableView's ItemsSource.
+        /// </summary>
+        public void Clear()
+        {
+            MyTableView?.ItemsSource?.Clear();
         }
     }
 }

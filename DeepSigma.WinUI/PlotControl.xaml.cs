@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using OxyPlot;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,9 +19,20 @@ using Windows.Foundation.Collections;
 
 namespace DeepSigma.WinUI
 {
-    public sealed partial class OxyPlotControl : UserControl
+    /// <summary>
+    /// A user control that hosts an OxyPlot PlotView.
+    /// </summary>
+    public sealed partial class PlotControl : UserControl
     {
-        public OxyPlotControl()
+        /// <summary>
+        /// Gets the PlotView control.
+        /// </summary>
+        public PlotView MyPlot => this.MyPlotView;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PlotControl"/> class.
+        /// </summary>
+        public PlotControl()
         {
             InitializeComponent();
         }

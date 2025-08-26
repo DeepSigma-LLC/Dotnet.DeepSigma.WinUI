@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <UserControl
-    x:Class="DeepSigma.WinUI.OxyPlotControl"
+    x:Class="DeepSigma.WinUI.PlotControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:DeepSigma.WinUI"
@@ -10,6 +10,6 @@
     xmlns:oxy="assembly=H.OxyPlot.WinUI" xmlns:oxy1="using:OxyPlot">
 
     <Grid>
-        <oxy1:PlotView x:Name="PlotViewControl"/>
+        <oxy1:PlotView x:Name="MyPlotView"/>
     </Grid>
 </UserControl>

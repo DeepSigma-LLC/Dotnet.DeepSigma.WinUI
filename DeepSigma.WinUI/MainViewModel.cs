@@ -11,20 +11,64 @@ using System.Threading.Tasks;
 
 namespace DeepSigma.WinUI
 {
-    public class MainViewModel
+    /// <summary>
+    /// A generic view model for managing a collection of items.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class MainViewModel<T> where T : class
     {
-        public ObservableCollection<Item> Items { get; set; }
+        private ObservableCollection<T> Items { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the MainViewModel class.
+        /// </summary>
         public MainViewModel()
         {
-            Items = new ObservableCollection<Item>
-        {
-            new Item { Name = "Item 1", Price = 10.0, Quantity = 1 },
-            new Item { Name = "Item 2", Price = 15.0, Quantity = 2 },
-            new Item { Name = "Item 3", Price = 20.0, Quantity = 3 },
-            // Add more items here
-        };
+           
         }
+
+        /// <summary>
+        /// Adds an item to the collection.
+        /// </summary>
+        /// <param name="item"></param>
+        public void Add(T item)
+        {
+            Items.Add(item);
+        }
+
+        /// <summary>
+        /// Adds multiple items to the collection.
+        /// </summary>
+        /// <param name="items"></param>
+        public void Add(IEnumerable<T> items)
+        {
+            foreach (var item in items)
+            {
+                Items.Add(item);
+            }
+        }
+
+        /// <summary>
+        /// Removes an item from the collection.
+        /// </summary>
+        /// <param name="item"></param>
+        public void RemoveItem(T item)
+        {
+            Items.Remove(item);
+        }
+
+        /// <summary>
+        /// Clears all items from the collection.
+        /// </summary>
+        public void ClearItems()
+        {
+            Items.Clear();
+        }
+
+        /// <summary>
+        /// Gets the number of items in the collection.
+        /// </summary>
+        public int ItemCount => Items.Count;
     }
 
     
