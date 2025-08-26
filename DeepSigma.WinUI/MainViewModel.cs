@@ -17,15 +17,7 @@ namespace DeepSigma.WinUI
     /// <typeparam name="T"></typeparam>
     public class MainViewModel<T> where T : class
     {
-        private ObservableCollection<T> Items { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of the MainViewModel class.
-        /// </summary>
-        public MainViewModel()
-        {
-           
-        }
+        private ObservableCollection<T> Items { get; set; } = [];
 
         /// <summary>
         /// Adds an item to the collection.

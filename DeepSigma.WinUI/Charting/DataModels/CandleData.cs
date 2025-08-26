@@ -8,7 +8,7 @@ namespace DeepSigma.WinUI.Charting.DataModels
 {
     public class CandleData : IDataModel
     {
-        public decimal X { get; set; }
+        public DateTime TimeStamp { get; set; }
         public decimal Open { get; set; }
         public decimal High { get; set; }
         public decimal Low { get; set; }
@@ -16,9 +16,9 @@ namespace DeepSigma.WinUI.Charting.DataModels
         public decimal BuyVolume { get; set; }
         public decimal SellVolume { get; set; }
         public CandleData() { }
-        public CandleData(decimal x, decimal open, decimal high, decimal low, decimal close, decimal buyVolume, decimal sellVolume)
+        public CandleData(DateTime time_stamp, decimal open, decimal high, decimal low, decimal close, decimal buyVolume, decimal sellVolume)
         {
-            X = x;
+            TimeStamp = time_stamp;
             Open = open;
             High = high;
             Low = low;

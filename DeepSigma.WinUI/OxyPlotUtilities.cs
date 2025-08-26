@@ -11,7 +11,6 @@ namespace DeepSigma.WinUI
 {
     internal class OxyPlotUtilities
     {
-
         internal static PlotModel CreatePlot(Chart chart)
         {
             PlotModel plot = new()

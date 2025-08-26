@@ -17,7 +17,11 @@ namespace DeepSigma.WinUI.OxyPlotCharting
     {
         private readonly Dictionary<ChartType, IChartBuilder> _builders = new();
 
-        public void Register(IChartBuilder builder) => _builders[builder.Type] = builder;
+        /// <summary>
+        /// Registers a new chart builder for a specific ChartType.
+        /// </summary>
+        /// <param name="builder"></param>
+        internal void Register(IChartBuilder builder) => _builders[builder.Type] = builder;
 
         /// <summary>
         /// Builds a PlotModel based on the provided Chart specification.

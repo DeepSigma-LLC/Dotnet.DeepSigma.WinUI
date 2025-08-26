@@ -42,7 +42,7 @@ namespace DeepSigma.WinUI.OxyPlotCharting.Builders
             {
                 series.Items.Add(new HighLowItem
                 {
-                    X = (double)data[i].X,
+                    X = data[i].TimeStamp.ToOADate(),
                     High = (double)data[i].High,
                     Low = (double)data[i].Low,
                     Open = (double)data[i].Open,
