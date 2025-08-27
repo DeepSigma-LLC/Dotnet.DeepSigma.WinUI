@@ -1,5 +1,6 @@
 ﻿using DeepSigma.WinUI.Charting.DataModels;
 using DeepSigma.WinUI.Charting.Enum;
+using DeepSigma.WinUI.Charting.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -12,22 +13,17 @@ namespace DeepSigma.WinUI.Charting
     /// <summary>
     /// Represents a series of data points in a chart.
     /// </summary>
-    public class ChartSeries<T> where T : IDataModel
+    public abstract class ChartSeriesAbstract<T> : IChartSeriesAbstract<T> where T : IDataModel
     {
         /// <summary>
         /// The name of the data series.
         /// </summary>
-        public string SeriesName { get; set; } = "Series Name";
-
-        /// <summary>
-        /// The type of chart series (e.g., Line, Scatter).
-        /// </summary>
-        public ChartSeriesType ChartSeriesType { get; set; } = ChartSeriesType.Line;
+        public required string SeriesName { get; set; } = string.Empty;
 
         /// <summary>
         /// The color of the data series.
         /// </summary>
-        public Color Color { get; set; }
+        public Color Color { get; set; } = Color.Blue;
 
         /// <summary>
         /// Indicates whether the data points should be interpolated.

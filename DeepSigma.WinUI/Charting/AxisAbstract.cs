@@ -1,4 +1,5 @@
 ﻿using DeepSigma.WinUI.Charting.Enum;
+using DeepSigma.WinUI.Charting.Interfaces;
 
 namespace DeepSigma.WinUI.Charting
 {
@@ -15,7 +16,7 @@ namespace DeepSigma.WinUI.Charting
         /// <summary>
         /// The title of the axis.
         /// </summary>
-        public string Title { get; set; } = "Axis Title";
+        public required string Title { get; set; }
 
         /// <summary>
         /// The type of the axis (e.g., Linear, Logarithmic).

@@ -2,13 +2,13 @@
 using DeepSigma.WinUI.Charting.Enum;
 using System.Collections.Generic;
 
-namespace DeepSigma.WinUI.Charting
+namespace DeepSigma.WinUI.Charting.Interfaces
 {
     /// <summary>
     /// Represents a chart with axes, series, and various properties.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface IChart<T, D> where T : IAxis where D : IDataModel
+    public interface IChart<T> where T : IAxis
     {
         /// <summary>
         /// Gets the collection of axes for the chart.
@@ -18,7 +18,7 @@ namespace DeepSigma.WinUI.Charting
         /// <summary>
         /// Gets the collection of data series to be plotted on the chart.
         /// </summary>
-        List<ChartSeries<D>> Series { get; init; }
+        List<IChartSeriesAbstract<IDataModel>> Series { get; init; }
 
         /// <summary>
         /// Gets or sets a value indicating whether to display the chart legend.
@@ -34,6 +34,6 @@ namespace DeepSigma.WinUI.Charting
         /// Retrieves the series of a specific data model type.
         /// </summary>
         /// <returns></returns>
-        List<ChartSeries<D>> GetSeries();
+        List<IChartSeriesAbstract<IDataModel>> GetSeries();
     }
 }

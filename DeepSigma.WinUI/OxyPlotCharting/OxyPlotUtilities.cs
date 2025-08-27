@@ -7,12 +7,13 @@ using System.Collections.Generic;
 using System.Drawing;
 using DeepSigma.WinUI.Charting;
 using DeepSigma.WinUI.Charting.DataModels;
+using DeepSigma.WinUI.Charting.Interfaces;
 
 namespace DeepSigma.WinUI.OxyPlotCharting
 {
     internal class OxyPlotUtilities
     {
-        internal static PlotModel CreatePlot<D>(IChart<IAxis, D> chart) where D : IDataModel
+        internal static PlotModel CreatePlot<A>(IChart<A> chart) where A : IAxis
         {
             PlotModel plot = new()
             {
@@ -32,9 +33,9 @@ namespace DeepSigma.WinUI.OxyPlotCharting
             return plot;
         }
 
-        internal static void AddAxesToPlot<D>(PlotModel plot, IChart<IAxis, D> chart) where D : IDataModel
+        internal static void AddAxesToPlot<A>(PlotModel plot, IChart<A> chart) where A : IAxis
         {
-            foreach (AxisAbstract ax in chart.Axes.GetAllAxes())
+            foreach (A ax in chart.Axes.GetAllAxes())
             {
                 var axis = CreateAxes(ax);
                 plot.Axes.Add(axis);
@@ -47,22 +48,50 @@ namespace DeepSigma.WinUI.OxyPlotCharting
         /// <param name="chart_type"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        internal static Series GetSeries(ChartSeriesType chart_type)
+        internal static Series GetSeries(DataChartType chart_type)
         {
             switch (chart_type)
             {
-                case ChartSeriesType.Line: return new LineSeries();
-                case ChartSeriesType.Bar: return new BarSeries();
-                case ChartSeriesType.Pie: return new PieSeries();
-                case ChartSeriesType.Scatter: return new ScatterSeries();
-                case ChartSeriesType.Histogram: return new HistogramSeries();
-                case ChartSeriesType.BoxPlot: return new BoxPlotSeries();
-                case ChartSeriesType.Area: return new AreaSeries();
-                case ChartSeriesType.StepLine: return new StairStepSeries();
-                case ChartSeriesType.CandleStick: return new CandleStickSeries();
-                case ChartSeriesType.CandleStickAndVolume: return new VolumeSeries();
-                case ChartSeriesType.HeatMap: return new HeatMapSeries();
-                case ChartSeriesType.Column: return new BarSeries();
+                case DataChartType.Line: return new LineSeries();
+                case DataChartType.Scatter: return new ScatterSeries();
+                case DataChartType.Histogram: return new HistogramSeries();
+                case DataChartType.Area: return new AreaSeries();
+                case DataChartType.StepLine: return new StairStepSeries();
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        /// <summary>
+        /// Creates an OxyPlot axis based on the provided DeepSigma.WinUI.Charting.Axis configuration.
+        /// </summary>
+        /// <param name="chart_type"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        internal static Series GetSeries(CategoricalChartType chart_type)
+        {
+            switch (chart_type)
+            {
+                case CategoricalChartType.Bar: return new BarSeries();
+                case CategoricalChartType.Pie: return new PieSeries();
+                case CategoricalChartType.Column: return new BarSeries();
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        /// <summary>
+        /// Creates an OxyPlot axis based on the provided DeepSigma.WinUI.Charting.Axis configuration.
+        /// </summary>
+        /// <param name="chart_type"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        internal static Series GetSeries(FinancialChartType chart_type)
+        {
+            switch (chart_type)
+            {
+                case FinancialChartType.CandleStick: return new CandleStickSeries();
+                case FinancialChartType.CandleStickAndVolume: return new VolumeSeries();
                 default:
                     throw new NotImplementedException();
             }
@@ -73,13 +102,20 @@ namespace DeepSigma.WinUI.OxyPlotCharting
         /// </summary>
         /// <param name="axis"></param>
         /// <returns></returns>
-        internal static Axis CreateAxes(AxisAbstract axis)
+        internal static Axis CreateAxes<A>(A axis) where A : notnull, IAxis
         {
             Axis oxy_axis = CreateAxis(axis.AxisType);
             oxy_axis.Key = axis.Key;
             oxy_axis.Title = axis.Title;
             oxy_axis.MajorGridlineStyle = ConvertLineStyle(axis.MajorGridlineStyle);
             oxy_axis.MinorGridlineStyle = ConvertLineStyle(axis.MinorGridlineStyle);
+
+            Axis2D? axis2D = axis as Axis2D;
+            if (axis2D is not null)
+            {
+                oxy_axis.Position = ConvertAxisPosition(axis2D.AxisPosition);
+            }
+
 
             if (!double.IsNaN(axis.Minimum))
             {
@@ -97,6 +133,18 @@ namespace DeepSigma.WinUI.OxyPlotCharting
             }
 
             return oxy_axis;
+        }
+
+        private static AxisPosition ConvertAxisPosition(Chart2DAxisPosition position)
+        {
+            return position switch
+            {
+                Chart2DAxisPosition.Left => AxisPosition.Left,
+                Chart2DAxisPosition.Right => AxisPosition.Right,
+                Chart2DAxisPosition.Top => AxisPosition.Top,
+                Chart2DAxisPosition.Bottom => AxisPosition.Bottom,
+                _ => throw new NotImplementedException($"Axis position {position} is not supported.")
+            };
         }
 
         /// <summary>

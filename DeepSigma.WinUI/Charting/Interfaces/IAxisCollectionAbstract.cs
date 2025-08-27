@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DeepSigma.WinUI.Charting
+namespace DeepSigma.WinUI.Charting.Interfaces
 {
     /// <summary>
     /// Defines a collection of axes, allowing for adding, retrieving, and removing axes by key.

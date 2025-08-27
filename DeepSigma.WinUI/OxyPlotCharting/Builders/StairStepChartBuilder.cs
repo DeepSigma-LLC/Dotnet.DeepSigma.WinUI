@@ -1,6 +1,6 @@
-﻿using DeepSigma.WinUI.Charting;
-using DeepSigma.WinUI.Charting.DataModels;
+﻿using DeepSigma.WinUI.Charting.DataModels;
 using DeepSigma.WinUI.Charting.Enum;
+using DeepSigma.WinUI.Charting.Interfaces;
 using OxyPlot;
 using OxyPlot.Series;
 using System;
@@ -11,13 +11,13 @@ using System.Threading.Tasks;
 
 namespace DeepSigma.WinUI.OxyPlotCharting.Builders
 {
-    internal class StairStepChartBuilder : BaseChartBuilder, IChartBuilder
+    internal class StairStepChartBuilder : BaseChartBuilder, IDataChartBuilder
     {
-        public ChartSeriesType Type => ChartSeriesType.StepLine;
+        public DataChartType Type => DataChartType.StepLine;
 
-        void IChartBuilder.AddSeries<D>(PlotModel plot, ChartSeries<D> series)
+        void IDataChartBuilder.AddSeries<D>(PlotModel plot, IChartSeriesAbstract<D> series)
         {
-            StairStepSeries oxy_series = (StairStepSeries)OxyPlotUtilities.GetSeries(series.ChartSeriesType);
+            StairStepSeries oxy_series = (StairStepSeries)OxyPlotUtilities.GetSeries(Type);
 
             oxy_series.Title = series.SeriesName;
             oxy_series.MarkerType = MarkerType.Circle;

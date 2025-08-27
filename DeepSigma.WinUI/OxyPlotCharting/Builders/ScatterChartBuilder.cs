@@ -1,6 +1,6 @@
-﻿using DeepSigma.WinUI.Charting;
-using DeepSigma.WinUI.Charting.DataModels;
+﻿using DeepSigma.WinUI.Charting.DataModels;
 using DeepSigma.WinUI.Charting.Enum;
+using DeepSigma.WinUI.Charting.Interfaces;
 using OxyPlot;
 using OxyPlot.Series;
 using System;
@@ -11,13 +11,13 @@ using System.Threading.Tasks;
 
 namespace DeepSigma.WinUI.OxyPlotCharting.Builders
 {
-    internal class ScatterChartBuilder : BaseChartBuilder, IChartBuilder
+    internal class ScatterChartBuilder : BaseChartBuilder, IDataChartBuilder
     {
-        public ChartSeriesType Type => ChartSeriesType.Scatter;
+        public DataChartType Type => DataChartType.Scatter;
 
-        void IChartBuilder.AddSeries<D>(PlotModel plot, ChartSeries<D> series)
+        void IDataChartBuilder.AddSeries<D>(PlotModel plot, IChartSeriesAbstract<D> series)
         {
-            ScatterSeries oxy_series = (ScatterSeries)OxyPlotUtilities.GetSeries(series.ChartSeriesType);
+            ScatterSeries oxy_series = (ScatterSeries)OxyPlotUtilities.GetSeries(Type);
 
             oxy_series.Title = series.SeriesName;
             oxy_series.MarkerType = MarkerType.Circle;

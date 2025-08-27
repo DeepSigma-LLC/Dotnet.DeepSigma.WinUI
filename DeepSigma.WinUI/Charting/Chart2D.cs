@@ -1,4 +1,5 @@
 ﻿using DeepSigma.WinUI.Charting.DataModels;
+using DeepSigma.WinUI.Charting.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace DeepSigma.WinUI.Charting
     /// <summary>
     /// Represents a 2D chart with axes.
     /// </summary>
-    public class Chart2D<D> : ChartAbstract<Axis2D, D> where D : IDataModel
+    public class Chart2D : ChartAbstract<Axis2D>, IChart<Axis2D>
     {
         /// <summary>
         /// The collection of axes in the chart.

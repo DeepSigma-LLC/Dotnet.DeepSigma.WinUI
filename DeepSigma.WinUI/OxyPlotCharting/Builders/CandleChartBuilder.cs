@@ -1,6 +1,6 @@
-﻿using DeepSigma.WinUI.Charting;
-using DeepSigma.WinUI.Charting.DataModels;
+﻿using DeepSigma.WinUI.Charting.DataModels;
 using DeepSigma.WinUI.Charting.Enum;
+using DeepSigma.WinUI.Charting.Interfaces;
 using OxyPlot;
 using OxyPlot.Series;
 using System;
@@ -11,20 +11,21 @@ using System.Threading.Tasks;
 
 namespace DeepSigma.WinUI.OxyPlotCharting.Builders
 {
-    internal class CandleChartBuilder : BaseChartBuilder, IChartBuilder
+    internal class CandleChartBuilder : BaseChartBuilder, IFinancialChartBuilder
     {
-        public ChartSeriesType Type => ChartSeriesType.CandleStick;
+        public FinancialChartType Type => FinancialChartType.CandleStick;
 
-        void IChartBuilder.AddSeries<D>(PlotModel plot, ChartSeries<D> series)
+        void IFinancialChartBuilder.AddSeries<D>(PlotModel plot, IChartSeriesAbstract<D> series)
         {
-                CandleStickSeries oxy_series = (CandleStickSeries)OxyPlotUtilities.GetSeries(series.ChartSeriesType);
+            CandleStickSeries oxy_series = (CandleStickSeries)OxyPlotUtilities.GetSeries(Type);
 
-                oxy_series.Title = series.SeriesName;
-                oxy_series.Color = OxyPlotUtilities.GetOxyColor(series.Color);
-                oxy_series.DecreasingColor = OxyColors.Red;
-                oxy_series.IncreasingColor = OxyColors.Green;
-                oxy_series.XAxisKey = series.PrimaryAxis.Key;
-                oxy_series.YAxisKey = series.SecondardyAxis.Key;
+            oxy_series.Title = series.SeriesName;
+            oxy_series.Color = OxyPlotUtilities.GetOxyColor(series.Color);
+            oxy_series.DecreasingColor = OxyColors.Red;
+            oxy_series.IncreasingColor = OxyColors.Green;
+            oxy_series.XAxisKey = series.PrimaryAxis.Key;
+            oxy_series.YAxisKey = series.SecondardyAxis.Key;
+
 
             LoadSeries(oxy_series, series.Data.GetAllDataPoints());
 

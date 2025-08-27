@@ -1,6 +1,6 @@
-﻿using DeepSigma.WinUI.Charting;
-using DeepSigma.WinUI.Charting.DataModels;
+﻿using DeepSigma.WinUI.Charting.DataModels;
 using DeepSigma.WinUI.Charting.Enum;
+using DeepSigma.WinUI.Charting.Interfaces;
 using OxyPlot;
 using OxyPlot.Series;
 using System;
@@ -11,13 +11,13 @@ using System.Threading.Tasks;
 
 namespace DeepSigma.WinUI.OxyPlotCharting.Builders
 {
-    internal class CandleWithVolumeChartBuilder : BaseChartBuilder, IChartBuilder
+    internal class CandleWithVolumeChartBuilder : BaseChartBuilder, IFinancialChartBuilder
     {
-        public ChartSeriesType Type => ChartSeriesType.CandleStickAndVolume;
+        public FinancialChartType Type => FinancialChartType.CandleStickAndVolume;
 
-        void IChartBuilder.AddSeries<D>(PlotModel plot, ChartSeries<D> series)
+        void IFinancialChartBuilder.AddSeries<D>(PlotModel plot, IChartSeriesAbstract<D> series)
         {
-            VolumeSeries oxy_series = (VolumeSeries)OxyPlotUtilities.GetSeries(series.ChartSeriesType);
+            VolumeSeries oxy_series = (VolumeSeries)OxyPlotUtilities.GetSeries(Type);
 
             oxy_series.Title = series.SeriesName;
             oxy_series.VolumeStyle = VolumeStyle.PositiveNegative;

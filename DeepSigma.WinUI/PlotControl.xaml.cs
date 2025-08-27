@@ -41,9 +41,9 @@ namespace DeepSigma.WinUI
         /// Sets the PlotView model to be displayed in the control.
         /// </summary>
         /// <param name="model"></param>
-        public void SetPlotModel(PlotView model)
+        public void SetPlotModel(PlotModel model)
         {
-            this.MyPlotView = model;
+            this.MyPlotView.Model = model;
         }
     }
 }

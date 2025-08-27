@@ -15,6 +15,6 @@ namespace DeepSigma.WinUI.Charting
         /// <summary>
         /// Gets or sets the type of the 3D axis.
         /// </summary>
-        public Chart3DAxis Axis { get; set; }
+        public required Chart3DAxis AxisPosition { get; set; }
     }
 }

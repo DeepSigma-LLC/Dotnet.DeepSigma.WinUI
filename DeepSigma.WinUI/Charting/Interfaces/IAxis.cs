@@ -1,6 +1,6 @@
 ﻿using DeepSigma.WinUI.Charting.Enum;
 
-namespace DeepSigma.WinUI.Charting
+namespace DeepSigma.WinUI.Charting.Interfaces
 {
     /// <summary>
     /// Defines the properties and methods for configuring an axis in a chart.

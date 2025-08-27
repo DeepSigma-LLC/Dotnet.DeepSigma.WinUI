@@ -1,6 +1,6 @@
-﻿using DeepSigma.WinUI.Charting;
-using DeepSigma.WinUI.Charting.DataModels;
+﻿using DeepSigma.WinUI.Charting.DataModels;
 using DeepSigma.WinUI.Charting.Enum;
+using DeepSigma.WinUI.Charting.Interfaces;
 using OxyPlot;
 using OxyPlot.Series;
 using System;
@@ -11,13 +11,13 @@ using System.Threading.Tasks;
 
 namespace DeepSigma.WinUI.OxyPlotCharting.Builders
 {
-    internal class BarChartBuilder : BaseChartBuilder, IChartBuilder
+    internal class BarChartBuilder : BaseChartBuilder, ICategoricalChartBuilder
     {
-        public ChartSeriesType Type => ChartSeriesType.Bar;
+        public CategoricalChartType Type => CategoricalChartType.Bar;
 
-        void IChartBuilder.AddSeries<D>(PlotModel plot, ChartSeries<D> series)
+        void ICategoricalChartBuilder.AddSeries<D>(PlotModel plot, IChartSeriesAbstract<D> series)
         {
-            BarSeries oxy_series = (BarSeries)OxyPlotUtilities.GetSeries(series.ChartSeriesType);
+            BarSeries oxy_series = (BarSeries)OxyPlotUtilities.GetSeries(Type);
 
             oxy_series.Title = series.SeriesName;
             oxy_series.FillColor = OxyPlotUtilities.GetOxyColor(series.Color);

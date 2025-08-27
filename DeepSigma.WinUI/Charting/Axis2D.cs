@@ -15,6 +15,6 @@ namespace DeepSigma.WinUI.Charting
         /// <summary>
         /// The position of the axis on the chart (e.g., Left, Right, Top, Bottom).
         /// </summary>
-        public Chart2DAxisPosition Axis { get; set; }
+        public required Chart2DAxisPosition AxisPosition { get; set; }
     }
 }

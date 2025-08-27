@@ -9,6 +9,7 @@ using DeepSigma.WinUI.Charting;
 using DeepSigma.WinUI.OxyPlotCharting.Builders;
 using DeepSigma.WinUI.OxyPlotCharting;
 using DeepSigma.WinUI.Charting.DataModels;
+using DeepSigma.WinUI.Charting.Interfaces;
 
 namespace DeepSigma.WinUI
 {
@@ -17,13 +18,30 @@ namespace DeepSigma.WinUI
     /// </summary>
     public sealed class ChartBuilderRegistry
     {
-        private readonly Dictionary<ChartSeriesType, IChartBuilder> _builders = new();
+        private readonly Dictionary<DataChartType, IDataChartBuilder> _builders = new();
+
+        private readonly Dictionary<CategoricalChartType, ICategoricalChartBuilder> _category_builders = new();
+
+        private readonly Dictionary<FinancialChartType, IFinancialChartBuilder> _finance_builders = new();
 
         /// <summary>
         /// Registers a new chart builder for a specific ChartType.
         /// </summary>
         /// <param name="builder"></param>
-        internal void Register(IChartBuilder builder) => _builders[builder.Type] = builder;
+        internal void Register(IDataChartBuilder builder) => _builders[builder.Type] = builder;
+
+
+        /// <summary>
+        /// Registers a new chart builder for a specific ChartType.
+        /// </summary>
+        /// <param name="builder"></param>
+        internal void Register(ICategoricalChartBuilder builder) => _category_builders[builder.Type] = builder;
+
+        /// <summary>
+        /// Registers a new chart builder for a specific ChartType.
+        /// </summary>
+        /// <param name="builder"></param>
+        internal void Register(IFinancialChartBuilder builder) => _finance_builders[builder.Type] = builder;
 
         /// <summary>
         /// Builds a PlotModel based on the provided Chart specification.
@@ -31,17 +49,47 @@ namespace DeepSigma.WinUI
         /// <param name="chart"></param>
         /// <returns></returns>
         /// <exception cref="InvalidOperationException"></exception>
-        public PlotModel Build<D>(IChart<IAxis, D> chart) where D : IDataModel
+        public PlotModel Build<A>(IChart<A> chart) where A : IAxis
         {
             PlotModel plot = OxyPlotUtilities.CreatePlot(chart);
             OxyPlotUtilities.AddAxesToPlot(plot, chart);
-            foreach (ChartSeries<D> series in chart.GetSeries())
+            foreach (IChartSeriesAbstract<IDataModel> series in chart.GetSeries())
             {
-                if (!_builders.TryGetValue(series.ChartSeriesType, out var builder))
+                if(series.GetType() == typeof(ChartDataSeries))
                 {
-                    throw new InvalidOperationException($"No builder registered for {series.ChartSeriesType}");
+                    ChartDataSeries casted_series = (ChartDataSeries)series;
+                    if (!_builders.TryGetValue(casted_series.ChartType, out var builder))
+                    {
+                        throw new InvalidOperationException($"No builder registered for {casted_series.ChartType}");
+                    }
+
+                    builder.AddSeries(plot, series);
                 }
-                builder.AddSeries(plot, series);
+                else if (series.GetType() == typeof(ChartCategoricalSeries))
+                {
+                    ChartCategoricalSeries casted_series = (ChartCategoricalSeries)series;
+                    if (!_category_builders.TryGetValue(casted_series.ChartType, out var builder))
+                    {
+                        throw new InvalidOperationException($"No builder registered for {casted_series.ChartType}");
+                    }
+
+                    builder.AddSeries(plot, series);
+                }
+                else if (series.GetType() == typeof(ChartFinancialSeries))
+                {
+                    ChartFinancialSeries casted_series = (ChartFinancialSeries)series;
+                    if (!_finance_builders.TryGetValue(casted_series.ChartType, out var builder))
+                    {
+                        throw new InvalidOperationException($"No builder registered for {casted_series.ChartType}");
+                    }
+
+                    builder.AddSeries(plot, series);
+                }
+                else
+                {
+                    throw new NotImplementedException("Chart series build is not yet implemented.");
+                }
+
             }
             return plot;
         }
@@ -61,7 +109,6 @@ namespace DeepSigma.WinUI
             reg.Register(new AreaChartBuilder());
             reg.Register(new StairStepChartBuilder());
             reg.Register(new PieChartBuilder());
-            reg.Register(new BoxPlotChartBuilder());
             return reg;
         }
     }
