@@ -15,7 +15,7 @@ namespace DeepSigma.WinUI.OxyPlotCharting.Builders
     {
         public ChartType Type => ChartType.StepLine;
 
-        protected override void AddSeries(PlotModel plot, Chart chart)
+        protected override void AddSeries(PlotModel plot, IChart<IAxis> chart)
         {
             foreach (ChartSeries<XYData> chart_series in chart.GetSeries<XYData>())
             {

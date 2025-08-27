@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace DeepSigma.WinUI.Charting.Enum
 {
-    public enum ChartAxisPosition
+    public enum Chart3DAxis
     {
-        Left,
-        Right,
-        Top,
-        Bottom
+        X,
+        Y,
+        Z
     }
 }

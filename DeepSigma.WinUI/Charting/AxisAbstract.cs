@@ -5,7 +5,7 @@ namespace DeepSigma.WinUI.Charting
     /// <summary>
     /// Represents an axis in a chart with various configurable properties.
     /// </summary>
-    public class Axis
+    public abstract class AxisAbstract : IAxis
     {
         /// <summary>
         /// A unique identifier for the axis.
@@ -21,11 +21,6 @@ namespace DeepSigma.WinUI.Charting
         /// The type of the axis (e.g., Linear, Logarithmic).
         /// </summary>
         public AxisType AxisType { get; set; } = AxisType.Linear;
-
-        /// <summary>
-        /// The position of the axis on the chart (e.g., Left, Right, Top, Bottom).
-        /// </summary>
-        public ChartAxisPosition AxisPosition { get; set; } = ChartAxisPosition.Left;
 
         /// <summary>
         /// Indicates whether to show grid lines on the axis.

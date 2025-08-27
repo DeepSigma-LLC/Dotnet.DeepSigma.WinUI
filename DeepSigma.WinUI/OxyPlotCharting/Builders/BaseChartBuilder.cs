@@ -10,7 +10,7 @@ namespace DeepSigma.WinUI.OxyPlotCharting.Builders
 {
     internal abstract class BaseChartBuilder
     {
-        public PlotModel Build(Chart chart)
+        public PlotModel Build(IChart<IAxis> chart)
         {
             PlotModel plot = OxyPlotUtilities.CreatePlot(chart);
             OxyPlotUtilities.AddAxesToPlot(plot, chart);
@@ -18,6 +18,6 @@ namespace DeepSigma.WinUI.OxyPlotCharting.Builders
             return plot;
         }
 
-        protected abstract void AddSeries(PlotModel plot, Chart chart);
+        protected abstract void AddSeries(PlotModel plot, IChart<IAxis> chart);
     }
 }

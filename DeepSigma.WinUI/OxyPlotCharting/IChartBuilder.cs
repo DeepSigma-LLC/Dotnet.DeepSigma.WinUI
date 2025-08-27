@@ -25,6 +25,6 @@ namespace DeepSigma.WinUI.OxyPlotCharting
         /// </summary>
         /// <param name="chart"></param>
         /// <returns></returns>
-        PlotModel Build(Chart chart);
+        PlotModel Build(IChart<IAxis> chart);
     }
 }

@@ -26,16 +26,16 @@ namespace DeepSigma.WinUI.OxyPlotCharting
         /// <summary>
         /// Builds a PlotModel based on the provided Chart specification.
         /// </summary>
-        /// <param name="spec"></param>
+        /// <param name="chart"></param>
         /// <returns></returns>
         /// <exception cref="InvalidOperationException"></exception>
-        public PlotModel Build(Chart spec)
+        public PlotModel Build(IChart<IAxis> chart) 
         {
-            if (!_builders.TryGetValue(spec.ChartType, out var builder))
+            if (!_builders.TryGetValue(chart.ChartType, out var builder))
             {
-                throw new InvalidOperationException($"No builder registered for {spec.ChartType}");
+                throw new InvalidOperationException($"No builder registered for {chart.ChartType}");
             } 
-            return builder.Build(spec);
+            return builder.Build(chart);
         }
 
         /// <summary>

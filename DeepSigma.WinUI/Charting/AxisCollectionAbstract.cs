@@ -9,16 +9,16 @@ namespace DeepSigma.WinUI.Charting
     /// <summary>
     /// Represents a collection of axes for a chart.
     /// </summary>
-    public class AxisCollection
+    public abstract class AxisCollectionAbstract<T> : IAxisCollectionAbstract<T> where T : IAxis
     {
-        private Dictionary<string, Axis> axes { get; init; } = [];
+        private Dictionary<string, T> axes { get; init; } = [];
 
         /// <summary>
         /// Gets all axes in the collection.
         /// </summary>
         /// <param name="axis"></param>
         /// <exception cref="ArgumentException"></exception>
-        public void AddAxis(Axis axis)
+        public void AddAxis(T axis)
         {
             if (axes.ContainsKey(axis.Key))
             {
@@ -42,13 +42,13 @@ namespace DeepSigma.WinUI.Charting
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public Axis? TryToGetAxis(string key)
+        public T? TryToGetAxis(string key)
         {
             if (axes.TryGetValue(key, out var axis))
             {
                 return axis;
             }
-            return null;
+            return default;
         }
 
         /// <summary>
@@ -56,13 +56,13 @@ namespace DeepSigma.WinUI.Charting
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public Axis this[string key] => axes[key];
+        public T this[string key] => axes[key];
 
         /// <summary>
         /// Gets all axes in the collection as a list.
         /// </summary>
         /// <returns></returns>
-        public List<Axis> GetAllAxes() => axes.Values.ToList();
+        public List<T> GetAllAxes() => axes.Values.ToList();
 
     }
 }

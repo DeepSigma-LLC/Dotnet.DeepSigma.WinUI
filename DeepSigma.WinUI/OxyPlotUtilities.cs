@@ -11,7 +11,7 @@ namespace DeepSigma.WinUI
 {
     internal class OxyPlotUtilities
     {
-        internal static PlotModel CreatePlot(Chart chart)
+        internal static PlotModel CreatePlot(IChart<IAxis> chart)
         {
             PlotModel plot = new()
             {
@@ -31,9 +31,9 @@ namespace DeepSigma.WinUI
             return plot;
         }
 
-        internal static void AddAxesToPlot(PlotModel plot, Chart chart)
+        internal static void AddAxesToPlot(PlotModel plot, IChart<IAxis> chart)
         {
-            foreach (DeepSigma.WinUI.Charting.Axis ax in chart.Axes.GetAllAxes())
+            foreach (DeepSigma.WinUI.Charting.AxisAbstract ax in chart.Axes.GetAllAxes())
             {
                 var axis = OxyPlotUtilities.CreateAxes(ax);
                 plot.Axes.Add(axis);
@@ -72,7 +72,7 @@ namespace DeepSigma.WinUI
         /// </summary>
         /// <param name="axis"></param>
         /// <returns></returns>
-        internal static OxyPlot.Axes.Axis CreateAxes(DeepSigma.WinUI.Charting.Axis axis)
+        internal static OxyPlot.Axes.Axis CreateAxes(DeepSigma.WinUI.Charting.AxisAbstract axis)
         {
             OxyPlot.Axes.Axis oxy_axis = OxyPlotUtilities.CreateAxis(axis.AxisType);
             oxy_axis.Key = axis.Key;

@@ -12,7 +12,7 @@ namespace DeepSigma.WinUI.Charting
     /// <summary>
     /// Represents a chart with various properties and configurations.
     /// </summary>
-    public class Chart
+    public abstract class ChartAbstract<T> : IChart<T> where T : IAxis
     {
         /// <summary>
         /// The title of the chart.
@@ -33,7 +33,6 @@ namespace DeepSigma.WinUI.Charting
         {
             return Series.Where(s => s is ChartSeries<T>).Cast<ChartSeries<T>>().ToList();
         }
-   
 
         /// <summary>
         /// The type of chart (e.g., Line, Scatter).
@@ -48,7 +47,6 @@ namespace DeepSigma.WinUI.Charting
         /// <summary>
         /// The collection of axes in the chart.
         /// </summary>
-        public AxisCollection Axes { get; init; } = new();
-       
+        public abstract IAxisCollectionAbstract<T> Axes { get; init; }
     }
 }
