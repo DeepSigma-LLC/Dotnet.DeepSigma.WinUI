@@ -61,6 +61,12 @@ namespace DeepSigma.WinUI
         /// Gets the number of items in the collection.
         /// </summary>
         public int ItemCount => Items.Count;
+
+        /// <summary>
+        /// Retrieves all items in the collection.
+        /// </summary>
+        /// <returns></returns>
+        public ObservableCollection<T> GetItems() => Items;
     }
 
     

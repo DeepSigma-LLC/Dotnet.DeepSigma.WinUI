@@ -13,35 +13,32 @@ namespace DeepSigma.WinUI.OxyPlotCharting.Builders
 {
     internal class AreaChartBuilder : BaseChartBuilder, IChartBuilder
     {
-        public ChartType Type => ChartType.Area;
+        public ChartSeriesType Type => ChartSeriesType.Area;
 
-        protected override void AddSeries(PlotModel plot, IChart<IAxis> chart) 
+        void IChartBuilder.AddSeries<D>(PlotModel plot, ChartSeries<D> series)
         {
-            foreach (ChartSeries<XYData> chart_series in chart.GetSeries<XYData>())
+            AreaSeries oxy_series = (AreaSeries)OxyPlotUtilities.GetSeries(series.ChartSeriesType);
+
+            oxy_series.Title = series.SeriesName;
+            oxy_series.MarkerType = MarkerType.Circle;
+            oxy_series.MarkerFill = OxyPlotUtilities.GetOxyColor(series.Color);
+            oxy_series.MarkerType = MarkerType.Circle;
+            oxy_series.XAxisKey = series.PrimaryAxis.Key;
+            oxy_series.YAxisKey = series.SecondardyAxis.Key;
+
+            LoadSeries(oxy_series, series.Data.GetAllDataPoints());
+       
+            plot.Series.Add(oxy_series);
+        }
+
+        private static void LoadSeries<D>(AreaSeries series, List<D> data) where D : IDataModel
+        {
+            List<XYData> converted_data = ConvertSeriesDataType<D, XYData>(data);
+            foreach (XYData point in converted_data)
             {
-                AreaSeries series = (AreaSeries)OxyPlotUtilities.GetSeries(chart.ChartType);
-                foreach (XYData item in chart_series.DataPoints.GetAllDataPoints())
-                {
-                    LoadSeries(series, chart_series.DataPoints.GetAllDataPoints());
-                }
-
-                series.Title = chart_series.SeriesName;
-                series.MarkerType = MarkerType.Circle;
-                series.MarkerFill = OxyPlotUtilities.GetOxyColor(chart_series.Color);
-                series.MarkerType = MarkerType.Circle;
-                series.XAxisKey = "X";
-                series.YAxisKey = "Y";
-
-                plot.Series.Add(series);
+                series.Points.Add(new DataPoint((double)point.X, (double)point.Y));
             }
         }
 
-        private static void LoadSeries(AreaSeries series, List<XYData> data)
-        {
-            for (int i = 0; i < data.Count; i++)
-            {
-                series.Points.Add(new DataPoint((double)data[i].X, (double)data[i].Y));
-            }
-        }
     }
 }

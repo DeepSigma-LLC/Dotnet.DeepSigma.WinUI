@@ -13,34 +13,29 @@ namespace DeepSigma.WinUI.OxyPlotCharting.Builders
 {
     internal class LineChartBuilder : BaseChartBuilder, IChartBuilder
     {
-        public ChartType Type => ChartType.Line;
+        public ChartSeriesType Type => ChartSeriesType.Line;
 
-        protected override void AddSeries(PlotModel plot, IChart<IAxis> chart)
+        void IChartBuilder.AddSeries<D>(PlotModel plot, ChartSeries<D> series)
         {
-            foreach (ChartSeries<XYData> chart_series in chart.GetSeries<XYData>())
-            {
-                LineSeries series = (LineSeries)OxyPlotUtilities.GetSeries(chart.ChartType);
-                foreach (XYData item in chart_series.DataPoints.GetAllDataPoints())
-                {
-                    LoadSeries(series, chart_series.DataPoints.GetAllDataPoints());
-                }
+            LineSeries oxy_series = (LineSeries)OxyPlotUtilities.GetSeries(series.ChartSeriesType);
 
-                series.Title = chart_series.SeriesName;
-                series.MarkerType = MarkerType.Circle;
-                series.Color = OxyPlotUtilities.GetOxyColor(chart_series.Color);
-                series.MarkerType = MarkerType.Circle;
-                series.XAxisKey = "X";
-                series.YAxisKey = "Y";
+            oxy_series.Title = series.SeriesName;
+            oxy_series.MarkerType = MarkerType.Circle;
+            oxy_series.Color = OxyPlotUtilities.GetOxyColor(series.Color);
+            oxy_series.MarkerType = MarkerType.Circle;
+            oxy_series.XAxisKey = series.PrimaryAxis.Key;
+            oxy_series.YAxisKey = series.SecondardyAxis.Key;
 
-                plot.Series.Add(series);
-            }
+            LoadSeries(oxy_series, series.Data.GetAllDataPoints());
+            plot.Series.Add(oxy_series);
         }
 
-        private static void LoadSeries(LineSeries series, List<XYData> data)
+        private static void LoadSeries<D>(LineSeries series, List<D> data) where D : IDataModel
         {
-            for (int i = 0; i < data.Count; i++)
+            List<XYData> converted_data = ConvertSeriesDataType<D, XYData>(data);
+            foreach (XYData point in converted_data)
             {
-                series.Points.Add(new DataPoint((double)data[i].X, (double)data[i].Y));
+                series.Points.Add(new DataPoint((double)point.X, (double)point.Y));
             }
         }
 

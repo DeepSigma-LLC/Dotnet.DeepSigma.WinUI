@@ -9,7 +9,7 @@ namespace DeepSigma.WinUI.Charting.Enum
     /// <summary>
     /// Defines the type of chart to be rendered.
     /// </summary>
-    public enum ChartType
+    public enum ChartSeriesType
     {
         /// <summary>
         /// A line chart, which displays information as a series of data points connected by straight line segments.

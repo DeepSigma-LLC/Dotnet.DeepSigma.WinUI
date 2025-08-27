@@ -13,18 +13,19 @@ namespace DeepSigma.WinUI.OxyPlotCharting
     /// <summary>
     /// Interface for building OxyPlot PlotModel from Chart specifications.
     /// </summary>
-    public interface IChartBuilder
+    internal interface IChartBuilder
     {
         /// <summary>
         /// Gets the type of chart this builder supports.
         /// </summary>
-        ChartType Type { get; }
+        ChartSeriesType Type { get; }
 
         /// <summary>
         /// Builds an OxyPlot PlotModel based on the provided Chart specification.
         /// </summary>
-        /// <param name="chart"></param>
+        /// <param name="plot"></param>
+        /// <param name="series"></param>
         /// <returns></returns>
-        PlotModel Build(IChart<IAxis> chart);
+        void AddSeries<D>(PlotModel plot, ChartSeries<D> series) where D: IDataModel;
     }
 }

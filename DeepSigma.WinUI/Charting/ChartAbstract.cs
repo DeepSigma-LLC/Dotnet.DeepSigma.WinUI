@@ -12,7 +12,7 @@ namespace DeepSigma.WinUI.Charting
     /// <summary>
     /// Represents a chart with various properties and configurations.
     /// </summary>
-    public abstract class ChartAbstract<T> : IChart<T> where T : IAxis
+    public abstract class ChartAbstract<T, D> : IChart<T, D> where T : IAxis where D : IDataModel
     {
         /// <summary>
         /// The title of the chart.
@@ -22,22 +22,16 @@ namespace DeepSigma.WinUI.Charting
         /// <summary>
         /// The collection of data series in the chart.
         /// </summary>
-        public List<ChartSeries<IDataModel>> Series { get; init; } = [];
+        public List<ChartSeries<D>> Series { get; init; } = [];
 
         /// <summary>
         /// Gets all series of a specific data model type.
         /// </summary>
-        /// <typeparam name="D"></typeparam>
         /// <returns></returns>
-        public List<ChartSeries<D>> GetSeries<D>() where D : IDataModel
+        public List<ChartSeries<D>> GetSeries()
         {
-            return Series.Where(s => s is ChartSeries<D>).Cast<ChartSeries<D>>().ToList();
+            return Series;
         }
-
-        /// <summary>
-        /// The type of chart (e.g., Line, Scatter).
-        /// </summary>
-        public ChartType ChartType { get; set; } = ChartType.Line;
 
         /// <summary>
         /// Indicates whether to show the legend.

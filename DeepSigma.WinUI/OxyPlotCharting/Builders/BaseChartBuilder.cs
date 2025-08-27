@@ -1,23 +1,24 @@
 ﻿using DeepSigma.WinUI.Charting;
+using DeepSigma.WinUI.Charting.DataModels;
+using DeepSigma.WinUI.Charting.Enum;
 using OxyPlot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DeepSigma.WinUI.OxyPlotCharting.Builders
 {
     internal abstract class BaseChartBuilder
     {
-        public PlotModel Build(IChart<IAxis> chart)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="D"></typeparam>
+        /// <typeparam name="V"></typeparam>
+        /// <exception cref="InvalidCastException"></exception>
+        protected static List<V> ConvertSeriesDataType<D, V>(List<D> data) where D : IDataModel where V : IDataModel
         {
-            PlotModel plot = OxyPlotUtilities.CreatePlot(chart);
-            OxyPlotUtilities.AddAxesToPlot(plot, chart);
-            AddSeries(plot, chart);
-            return plot;
+            return data.Cast<V>().ToList();
         }
-
-        protected abstract void AddSeries(PlotModel plot, IChart<IAxis> chart);
     }
 }

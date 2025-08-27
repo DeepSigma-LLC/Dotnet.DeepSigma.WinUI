@@ -8,7 +8,7 @@ namespace DeepSigma.WinUI.Charting
     /// Represents a chart with axes, series, and various properties.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface IChart<T> where T : IAxis
+    public interface IChart<T, D> where T : IAxis where D : IDataModel
     {
         /// <summary>
         /// Gets the collection of axes for the chart.
@@ -16,14 +16,9 @@ namespace DeepSigma.WinUI.Charting
         IAxisCollectionAbstract<T> Axes { get; init; }
 
         /// <summary>
-        /// Gets or sets the type of the chart (e.g., Line, Bar, Pie).
-        /// </summary>
-        ChartType ChartType { get; set; }
-
-        /// <summary>
         /// Gets the collection of data series to be plotted on the chart.
         /// </summary>
-        List<ChartSeries<IDataModel>> Series { get; init; }
+        List<ChartSeries<D>> Series { get; init; }
 
         /// <summary>
         /// Gets or sets a value indicating whether to display the chart legend.
@@ -38,8 +33,7 @@ namespace DeepSigma.WinUI.Charting
         /// <summary>
         /// Retrieves the series of a specific data model type.
         /// </summary>
-        /// <typeparam name="D"></typeparam>
         /// <returns></returns>
-        List<ChartSeries<D>> GetSeries<D>() where D : IDataModel;
+        List<ChartSeries<D>> GetSeries();
     }
 }

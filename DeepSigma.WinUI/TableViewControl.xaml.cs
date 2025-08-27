@@ -25,32 +25,46 @@ namespace DeepSigma.WinUI
     public sealed partial class TableViewControl : UserControl
     {
         /// <summary>
+        /// Minimum width for columns in the TableView.
+        /// </summary>
+        public int MinColumnWidth { get; set; } = 100;
+        /// <summary>
         /// Initializes a new instance of the <see cref="TableViewControl"/> class.
         /// </summary>
         public TableViewControl()
         {
             InitializeComponent();
+            RefreshSettings();
         }
 
         /// <summary>
-        /// Adds an item to the TableView's ItemsSource.
+        /// Refreshes the TableView settings, applying properties like IsReadOnly and MinColumnWidth.
         /// </summary>
-        /// <param name="item"></param>
-        public void Add(object item)
+        public void RefreshSettings()
         {
-            MyTableView?.ItemsSource?.Add(item);
+            MyTableView.IsReadOnly = true;
+            MyTableView.MinColumnWidth = MinColumnWidth;
         }
 
         /// <summary>
-        /// Adds multiple items to the TableView's ItemsSource.
+        /// Automatically adjusts the width of all columns in the TableView to fit their content.
         /// </summary>
-        /// <param name="items"></param>
-        public void Add(IEnumerable<object> items)
+        public void AutoFitColumns()
         {
-            foreach (var item in items)
+            foreach (var column in MyTableView.Columns)
             {
-                MyTableView?.ItemsSource?.Add(item);
+                column.Width = GridLength.Auto;
             }
+        }
+
+        /// <summary>
+        /// Binds the provided MainViewModel's items to the TableView's ItemsSource.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="view_models"></param>
+        public void BindData<T>(MainViewModel<T> view_models) where T : class
+        {
+            MyTableView.ItemsSource = view_models.GetItems();
         }
 
         /// <summary>
@@ -58,7 +72,7 @@ namespace DeepSigma.WinUI
         /// </summary>
         public void Clear()
         {
-            MyTableView?.ItemsSource?.Clear();
+            MyTableView.ItemsSource?.Clear();
         }
     }
 }

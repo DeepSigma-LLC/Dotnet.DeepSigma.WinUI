@@ -1,4 +1,5 @@
 ﻿using DeepSigma.WinUI.Charting.DataModels;
+using DeepSigma.WinUI.Charting.Enum;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -19,6 +20,11 @@ namespace DeepSigma.WinUI.Charting
         public string SeriesName { get; set; } = "Series Name";
 
         /// <summary>
+        /// The type of chart series (e.g., Line, Scatter).
+        /// </summary>
+        public ChartSeriesType ChartSeriesType { get; set; } = ChartSeriesType.Line;
+
+        /// <summary>
         /// The color of the data series.
         /// </summary>
         public Color Color { get; set; }
@@ -31,6 +37,21 @@ namespace DeepSigma.WinUI.Charting
         /// <summary>
         /// The collection of data points in the series.
         /// </summary>
-        public DataSeries<T> DataPoints { get; set; } = new();
+        public DataSeries<T> Data { get; set; } = new();
+
+        /// <summary>
+        /// The primary axis.
+        /// </summary>
+        public required IAxis PrimaryAxis { get; set; }
+
+        /// <summary>
+        /// The secondard axis.
+        /// </summary>
+        public required IAxis SecondardyAxis { get; set; }
+
+        /// <summary>
+        /// The third axis used for 3D charts. Default value is null.
+        /// </summary>
+        public IAxis? TertiaryAxis { get; set; }
     }
 }

@@ -13,31 +13,27 @@ namespace DeepSigma.WinUI.OxyPlotCharting.Builders
 {
     internal class PieChartBuilder : BaseChartBuilder, IChartBuilder
     {
-        public ChartType Type => ChartType.Pie;
+        public ChartSeriesType Type => ChartSeriesType.Pie;
 
-        protected override void AddSeries(PlotModel plot, IChart<IAxis> chart)
+        void IChartBuilder.AddSeries<D>(PlotModel plot, ChartSeries<D> series)
         {
-            foreach (ChartSeries<CategoricalData> chart_series in chart.GetSeries<CategoricalData>())
-            {
-                PieSeries series = (PieSeries)OxyPlotUtilities.GetSeries(chart.ChartType);
-                foreach (CategoricalData item in chart_series.DataPoints.GetAllDataPoints())
-                {
-                    LoadSeries(series, chart_series.DataPoints.GetAllDataPoints());
-                }
+            PieSeries oxy_series = (PieSeries)OxyPlotUtilities.GetSeries(series.ChartSeriesType);
 
-                series.Title = chart_series.SeriesName;
-                series.LabelField = "Category";
-                series.ValueField = "Y";
+            oxy_series.Title = series.SeriesName;
+            oxy_series.LabelField = series.PrimaryAxis.Key;
+            oxy_series.ValueField = series.SecondardyAxis.Key;
 
-                plot.Series.Add(series);
-            }
+            LoadSeries(oxy_series, series.Data.GetAllDataPoints());
+
+            plot.Series.Add(oxy_series);
         }
 
-        private static void LoadSeries(PieSeries series, List<CategoricalData> data)
+        private static void LoadSeries<D>(PieSeries series, List<D> data) where D : IDataModel
         {
-            for (int i = 0; i < data.Count; i++)
+            List<CategoricalData> converted_data = ConvertSeriesDataType<D, CategoricalData>(data);
+            foreach (CategoricalData item in converted_data)
             {
-                series.Slices.Add(new PieSlice(data[i].Category, (double)data[i].Value)
+                series.Slices.Add(new PieSlice(item.Category, (double)item.Value)
                 {
                     IsExploded = false,
                     //Fill = OxyPlotUtilities.GetOxyColor(Color.FromArgb(100 + i * 10, 100 + i * 10, 200))

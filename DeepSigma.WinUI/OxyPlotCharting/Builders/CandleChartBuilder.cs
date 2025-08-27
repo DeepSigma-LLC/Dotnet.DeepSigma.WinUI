@@ -13,40 +13,37 @@ namespace DeepSigma.WinUI.OxyPlotCharting.Builders
 {
     internal class CandleChartBuilder : BaseChartBuilder, IChartBuilder
     {
-        public ChartType Type => ChartType.CandleStick;
+        public ChartSeriesType Type => ChartSeriesType.CandleStick;
 
-        protected override void AddSeries(PlotModel plot, IChart<IAxis> chart)
+        void IChartBuilder.AddSeries<D>(PlotModel plot, ChartSeries<D> series)
         {
-            foreach (ChartSeries<CandleData> chart_series in chart.GetSeries<CandleData>())
-            {
-                CandleStickSeries series = (CandleStickSeries)OxyPlotUtilities.GetSeries(chart.ChartType);
-                foreach (CandleData item in chart_series.DataPoints.GetAllDataPoints())
-                {
-                    LoadSeries(series, chart_series.DataPoints.GetAllDataPoints());
-                }
+                CandleStickSeries oxy_series = (CandleStickSeries)OxyPlotUtilities.GetSeries(series.ChartSeriesType);
 
-                series.Title = chart_series.SeriesName;
-                series.Color = OxyPlotUtilities.GetOxyColor(chart_series.Color);
-                series.DecreasingColor = OxyColors.Red;
-                series.IncreasingColor = OxyColors.Green;
-                series.XAxisKey = "X";
-                series.YAxisKey = "Y";
+                oxy_series.Title = series.SeriesName;
+                oxy_series.Color = OxyPlotUtilities.GetOxyColor(series.Color);
+                oxy_series.DecreasingColor = OxyColors.Red;
+                oxy_series.IncreasingColor = OxyColors.Green;
+                oxy_series.XAxisKey = series.PrimaryAxis.Key;
+                oxy_series.YAxisKey = series.SecondardyAxis.Key;
 
-                plot.Series.Add(series);
-            }
+            LoadSeries(oxy_series, series.Data.GetAllDataPoints());
+
+
+            plot.Series.Add(oxy_series);
         }
 
-        private static void LoadSeries(CandleStickSeries series, List<CandleData> data)
+        private static void LoadSeries<D>(CandleStickSeries series, List<D> data) where D : IDataModel
         {
-            for (int i = 0; i < data.Count; i++)
+            List<CandleData> converted_data = ConvertSeriesDataType<D, CandleData>(data);
+            foreach (CandleData item in converted_data)
             {
                 series.Items.Add(new HighLowItem
                 {
-                    X = data[i].TimeStamp.ToOADate(),
-                    High = (double)data[i].High,
-                    Low = (double)data[i].Low,
-                    Open = (double)data[i].Open,
-                    Close = (double)data[i].Close
+                    X = item.TimeStamp.ToOADate(),
+                    High = (double)item.High,
+                    Low = (double)item.Low,
+                    Open = (double)item.Open,
+                    Close = (double)item.Close
                 });
             }
         }

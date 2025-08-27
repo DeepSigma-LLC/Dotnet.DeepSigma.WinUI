@@ -7,15 +7,17 @@ using OxyPlot;
 using DeepSigma.WinUI.Charting.Enum;
 using DeepSigma.WinUI.Charting;
 using DeepSigma.WinUI.OxyPlotCharting.Builders;
+using DeepSigma.WinUI.OxyPlotCharting;
+using DeepSigma.WinUI.Charting.DataModels;
 
-namespace DeepSigma.WinUI.OxyPlotCharting
+namespace DeepSigma.WinUI
 {
     /// <summary>
     /// Registry for chart builders that can create PlotModel instances from ChartSpec specifications.
     /// </summary>
     public sealed class ChartBuilderRegistry
     {
-        private readonly Dictionary<ChartType, IChartBuilder> _builders = new();
+        private readonly Dictionary<ChartSeriesType, IChartBuilder> _builders = new();
 
         /// <summary>
         /// Registers a new chart builder for a specific ChartType.
@@ -29,13 +31,19 @@ namespace DeepSigma.WinUI.OxyPlotCharting
         /// <param name="chart"></param>
         /// <returns></returns>
         /// <exception cref="InvalidOperationException"></exception>
-        public PlotModel Build(IChart<IAxis> chart) 
+        public PlotModel Build<D>(IChart<IAxis, D> chart) where D : IDataModel
         {
-            if (!_builders.TryGetValue(chart.ChartType, out var builder))
+            PlotModel plot = OxyPlotUtilities.CreatePlot(chart);
+            OxyPlotUtilities.AddAxesToPlot(plot, chart);
+            foreach (ChartSeries<D> series in chart.GetSeries())
             {
-                throw new InvalidOperationException($"No builder registered for {chart.ChartType}");
-            } 
-            return builder.Build(chart);
+                if (!_builders.TryGetValue(series.ChartSeriesType, out var builder))
+                {
+                    throw new InvalidOperationException($"No builder registered for {series.ChartSeriesType}");
+                }
+                builder.AddSeries(plot, series);
+            }
+            return plot;
         }
 
         /// <summary>

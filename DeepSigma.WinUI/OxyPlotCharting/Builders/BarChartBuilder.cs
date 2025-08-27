@@ -13,32 +13,28 @@ namespace DeepSigma.WinUI.OxyPlotCharting.Builders
 {
     internal class BarChartBuilder : BaseChartBuilder, IChartBuilder
     {
-        public ChartType Type => ChartType.Bar;
+        public ChartSeriesType Type => ChartSeriesType.Bar;
 
-        protected override void AddSeries(PlotModel plot, IChart<IAxis> chart)
+        void IChartBuilder.AddSeries<D>(PlotModel plot, ChartSeries<D> series)
         {
-            foreach (ChartSeries<CategoricalData> chart_series in chart.GetSeries<CategoricalData>())
-            {
-                BarSeries series = (BarSeries)OxyPlotUtilities.GetSeries(chart.ChartType);
-                foreach (CategoricalData item in chart_series.DataPoints.GetAllDataPoints())
-                {
-                    LoadSeries(series, chart_series.DataPoints.GetAllDataPoints());
-                }
+            BarSeries oxy_series = (BarSeries)OxyPlotUtilities.GetSeries(series.ChartSeriesType);
 
-                series.Title = chart_series.SeriesName;
-                series.FillColor = OxyPlotUtilities.GetOxyColor(chart_series.Color);
-                series.XAxisKey = "X";
-                series.YAxisKey = "Y";
+            oxy_series.Title = series.SeriesName;
+            oxy_series.FillColor = OxyPlotUtilities.GetOxyColor(series.Color);
+            oxy_series.XAxisKey = series.PrimaryAxis.Key;
+            oxy_series.YAxisKey = series.SecondardyAxis.Key;
 
-                plot.Series.Add(series);
-            }
+            LoadSeries(oxy_series, series.Data.GetAllDataPoints());
+
+            plot.Series.Add(oxy_series);
         }
 
-        private static void LoadSeries(BarSeries series, List<CategoricalData> data)
+        private static void LoadSeries<D>(BarSeries series, List<D> data) where D : IDataModel
         {
+            List<CategoricalData> converted_data = ConvertSeriesDataType<D, CategoricalData>(data);
             for (int i = 0; i < data.Count; i++)
             {
-                series.Items.Add(new BarItem { Value = (double)data[i].Value, CategoryIndex = i });
+                series.Items.Add(new BarItem { Value = (double)converted_data[i].Value, CategoryIndex = i });
             }
         }
     }

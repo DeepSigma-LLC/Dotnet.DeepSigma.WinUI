@@ -5,13 +5,14 @@ using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using DeepSigma.WinUI.Charting; 
+using DeepSigma.WinUI.Charting;
+using DeepSigma.WinUI.Charting.DataModels;
 
-namespace DeepSigma.WinUI
+namespace DeepSigma.WinUI.OxyPlotCharting
 {
     internal class OxyPlotUtilities
     {
-        internal static PlotModel CreatePlot(IChart<IAxis> chart)
+        internal static PlotModel CreatePlot<D>(IChart<IAxis, D> chart) where D : IDataModel
         {
             PlotModel plot = new()
             {
@@ -31,11 +32,11 @@ namespace DeepSigma.WinUI
             return plot;
         }
 
-        internal static void AddAxesToPlot(PlotModel plot, IChart<IAxis> chart)
+        internal static void AddAxesToPlot<D>(PlotModel plot, IChart<IAxis, D> chart) where D : IDataModel
         {
-            foreach (DeepSigma.WinUI.Charting.AxisAbstract ax in chart.Axes.GetAllAxes())
+            foreach (AxisAbstract ax in chart.Axes.GetAllAxes())
             {
-                var axis = OxyPlotUtilities.CreateAxes(ax);
+                var axis = CreateAxes(ax);
                 plot.Axes.Add(axis);
             }
         }
@@ -46,22 +47,22 @@ namespace DeepSigma.WinUI
         /// <param name="chart_type"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        internal static Series GetSeries(ChartType chart_type)
+        internal static Series GetSeries(ChartSeriesType chart_type)
         {
             switch (chart_type)
             {
-                case ChartType.Line: return new LineSeries();
-                case ChartType.Bar: return new BarSeries();
-                case ChartType.Pie: return new PieSeries();
-                case ChartType.Scatter: return new ScatterSeries();
-                case ChartType.Histogram: return new HistogramSeries();
-                case ChartType.BoxPlot: return new BoxPlotSeries();
-                case ChartType.Area: return new AreaSeries();
-                case ChartType.StepLine: return new StairStepSeries();
-                case ChartType.CandleStick: return new CandleStickSeries();
-                case ChartType.CandleStickAndVolume: return new VolumeSeries();
-                case ChartType.HeatMap: return new HeatMapSeries();
-                case ChartType.Column: return new BarSeries();
+                case ChartSeriesType.Line: return new LineSeries();
+                case ChartSeriesType.Bar: return new BarSeries();
+                case ChartSeriesType.Pie: return new PieSeries();
+                case ChartSeriesType.Scatter: return new ScatterSeries();
+                case ChartSeriesType.Histogram: return new HistogramSeries();
+                case ChartSeriesType.BoxPlot: return new BoxPlotSeries();
+                case ChartSeriesType.Area: return new AreaSeries();
+                case ChartSeriesType.StepLine: return new StairStepSeries();
+                case ChartSeriesType.CandleStick: return new CandleStickSeries();
+                case ChartSeriesType.CandleStickAndVolume: return new VolumeSeries();
+                case ChartSeriesType.HeatMap: return new HeatMapSeries();
+                case ChartSeriesType.Column: return new BarSeries();
                 default:
                     throw new NotImplementedException();
             }
@@ -72,13 +73,13 @@ namespace DeepSigma.WinUI
         /// </summary>
         /// <param name="axis"></param>
         /// <returns></returns>
-        internal static OxyPlot.Axes.Axis CreateAxes(DeepSigma.WinUI.Charting.AxisAbstract axis)
+        internal static Axis CreateAxes(AxisAbstract axis)
         {
-            OxyPlot.Axes.Axis oxy_axis = OxyPlotUtilities.CreateAxis(axis.AxisType);
+            Axis oxy_axis = CreateAxis(axis.AxisType);
             oxy_axis.Key = axis.Key;
             oxy_axis.Title = axis.Title;
-            oxy_axis.MajorGridlineStyle = OxyPlotUtilities.ConvertLineStyle(axis.MajorGridlineStyle);
-            oxy_axis.MinorGridlineStyle = OxyPlotUtilities.ConvertLineStyle(axis.MinorGridlineStyle);
+            oxy_axis.MajorGridlineStyle = ConvertLineStyle(axis.MajorGridlineStyle);
+            oxy_axis.MinorGridlineStyle = ConvertLineStyle(axis.MinorGridlineStyle);
 
             if (!double.IsNaN(axis.Minimum))
             {
@@ -122,7 +123,7 @@ namespace DeepSigma.WinUI
         /// <param name="axis"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        internal static OxyPlot.Axes.Axis CreateAxis(AxisType axis)
+        internal static Axis CreateAxis(AxisType axis)
         {
             switch (axis)
             {
