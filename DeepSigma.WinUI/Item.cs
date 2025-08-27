@@ -12,15 +12,18 @@ namespace DeepSigma.WinUI
     /// </summary>
     public class Item : INotifyPropertyChanged
     {
-        private string _name;
+        private string? _name;
         private double _price;
         private int _quantity;
         /// <summary>
         /// Event fires when a property value changes.
         /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        public string Name
+        /// <summary>
+        /// The name of the item.
+        /// </summary>
+        public string? Name
         {
             get => _name;
             set
@@ -29,6 +32,9 @@ namespace DeepSigma.WinUI
                 OnPropertyChanged(nameof(Name));
             }
         }
+        /// <summary>
+        /// The price of the item.
+        /// </summary>
         public double Price
         {
             get => _price;
@@ -38,6 +44,9 @@ namespace DeepSigma.WinUI
                 OnPropertyChanged(nameof(Price));
             }
         }
+        /// <summary>
+        /// The quantity of the item.
+        /// </summary>
         public int Quantity
         {
             get => _quantity;

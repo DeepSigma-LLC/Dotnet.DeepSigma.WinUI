@@ -27,11 +27,11 @@ namespace DeepSigma.WinUI.Charting
         /// <summary>
         /// Gets all series of a specific data model type.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="D"></typeparam>
         /// <returns></returns>
-        public List<ChartSeries<T>> GetSeries<T>() where T : IDataModel
+        public List<ChartSeries<D>> GetSeries<D>() where D : IDataModel
         {
-            return Series.Where(s => s is ChartSeries<T>).Cast<ChartSeries<T>>().ToList();
+            return Series.Where(s => s is ChartSeries<D>).Cast<ChartSeries<D>>().ToList();
         }
 
         /// <summary>

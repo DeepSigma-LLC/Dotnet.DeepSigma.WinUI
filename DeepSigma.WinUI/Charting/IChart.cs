@@ -38,8 +38,8 @@ namespace DeepSigma.WinUI.Charting
         /// <summary>
         /// Retrieves the series of a specific data model type.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="D"></typeparam>
         /// <returns></returns>
-        List<ChartSeries<T>> GetSeries<T>() where T : IDataModel;
+        List<ChartSeries<D>> GetSeries<D>() where D : IDataModel;
     }
 }
