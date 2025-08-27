@@ -15,7 +15,7 @@ namespace DeepSigma.WinUI.OxyPlotCharting.Builders
     {
         public DataChartType Type => DataChartType.Area;
 
-        void IDataChartBuilder.AddSeries<D>(PlotModel plot, IChartSeriesAbstract<D> series)
+        void IDataChartBuilder.AddSeries(PlotModel plot, IChartSeriesAbstract series)
         {
             AreaSeries oxy_series = (AreaSeries)OxyPlotUtilities.GetSeries(Type);
 
@@ -31,9 +31,9 @@ namespace DeepSigma.WinUI.OxyPlotCharting.Builders
             plot.Series.Add(oxy_series);
         }
 
-        private static void LoadSeries<D>(AreaSeries series, List<D> data) where D : IDataModel
+        private static void LoadSeries(AreaSeries series, List<IDataModel> data)
         {
-            List<XYData> converted_data = ConvertSeriesDataType<D, XYData>(data);
+            List<XYData> converted_data = ConvertSeriesDataType<XYData>(data);
             foreach (XYData point in converted_data)
             {
                 series.Points.Add(new DataPoint((double)point.X, (double)point.Y));

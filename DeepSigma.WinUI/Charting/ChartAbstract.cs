@@ -23,15 +23,39 @@ namespace DeepSigma.WinUI.Charting
         /// <summary>
         /// The collection of data series in the chart.
         /// </summary>
-        public List<IChartSeriesAbstract<IDataModel>> Series { get; init; } = [];
+        public List<IChartSeriesAbstract> Series { get; init; } = [];
 
         /// <summary>
         /// Gets all series of a specific data model type.
         /// </summary>
         /// <returns></returns>
-        public List<IChartSeriesAbstract<IDataModel>> GetSeries()
+        public List<IChartSeriesAbstract> GetSeries()
         {
             return Series;
+        }
+
+        /// <summary>
+        /// Get all categorical labels by axis key.
+        /// </summary>
+        /// <returns></returns>
+        public Dictionary<string, string[]> GetCategoricalLabels()
+        {
+            Dictionary<string, string[]> results = [];
+
+            foreach(IChartSeriesAbstract data_series in GetSeries())
+            {
+                if(data_series.SecondardyAxis.AxisType == AxisType.Categorical)
+                {
+                    string key = data_series.SecondardyAxis.Key;
+                    List<string> category_labels = data_series.Data.GetAllDataPoints().Select(x => ((CategoricalData)x).Category).ToList();
+                    
+                    if (results.ContainsKey(key) == false)
+                    {
+                        results[key] = category_labels.ToArray();
+                    }
+                }
+            }
+            return results;
         }
 
         /// <summary>
@@ -43,5 +67,7 @@ namespace DeepSigma.WinUI.Charting
         /// The collection of axes in the chart.
         /// </summary>
         public abstract IAxisCollectionAbstract<T> Axes { get; init; }
+
+  
     }
 }

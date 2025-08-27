@@ -1,4 +1,5 @@
 ﻿using DeepSigma.WinUI.Charting.DataModels;
+using DeepSigma.WinUI.Charting.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,13 +14,13 @@ namespace DeepSigma.WinUI.Charting
     /// <typeparam name="T"></typeparam>
     public class DataSeries<T> where T : IDataModel
     {
-        private List<T> Data = [];
+        private List<IDataModel> Data = [];
 
         /// <summary>
         /// Adds a data point to the series.
         /// </summary>
         /// <param name="dataPoint"></param>
-        public void AddDataPoint(T dataPoint)
+        public void Add(T dataPoint)
         {
             Data.Add(dataPoint);
         }
@@ -28,7 +29,7 @@ namespace DeepSigma.WinUI.Charting
         /// Retrieves all data points in the series.
         /// </summary>
         /// <returns></returns>
-        public List<T> GetAllDataPoints()
+        public List<IDataModel> GetAllDataPoints()
         {
             return Data;
         }
@@ -51,14 +52,14 @@ namespace DeepSigma.WinUI.Charting
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public T this[int index] => Data[index];
+        public IDataModel this[int index] => Data[index];
 
         /// <summary>
         /// Filters a sequence of values based on a predicate.
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public IEnumerable<T> Where(Func<T, bool> predicate)
+        public IEnumerable<IDataModel> Where(Func<IDataModel, bool> predicate)
         {
             return Data.Where(predicate);
         }
@@ -69,7 +70,7 @@ namespace DeepSigma.WinUI.Charting
         /// <typeparam name="TResult"></typeparam>
         /// <param name="selector"></param>
         /// <returns></returns>
-        public IEnumerable<TResult> Select<TResult>(Func<T, TResult> selector)
+        public IEnumerable<TResult> Select<TResult>(Func<IDataModel, TResult> selector)
         {
             return Data.Select(selector);
         }
@@ -78,7 +79,7 @@ namespace DeepSigma.WinUI.Charting
         /// Adds a range of data points to the series.
         /// </summary>
         /// <param name="dataPoints"></param>
-        public void AddRange(IEnumerable<T> dataPoints)
+        public void AddRange(IEnumerable<IDataModel> dataPoints)
         {
             Data.AddRange(dataPoints);
         }

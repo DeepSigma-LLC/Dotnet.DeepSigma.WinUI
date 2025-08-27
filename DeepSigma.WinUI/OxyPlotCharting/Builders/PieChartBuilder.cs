@@ -15,7 +15,7 @@ namespace DeepSigma.WinUI.OxyPlotCharting.Builders
     {
         public CategoricalChartType Type => CategoricalChartType.Pie;
 
-        void ICategoricalChartBuilder.AddSeries<D>(PlotModel plot, IChartSeriesAbstract<D> series)
+        void ICategoricalChartBuilder.AddSeries(PlotModel plot, IChartSeriesAbstract series)
         {
             PieSeries oxy_series = (PieSeries)OxyPlotUtilities.GetSeries(Type);
 
@@ -28,9 +28,9 @@ namespace DeepSigma.WinUI.OxyPlotCharting.Builders
             plot.Series.Add(oxy_series);
         }
 
-        private static void LoadSeries<D>(PieSeries series, List<D> data) where D : IDataModel
+        private static void LoadSeries(PieSeries series, List<IDataModel> data)
         {
-            List<CategoricalData> converted_data = ConvertSeriesDataType<D, CategoricalData>(data);
+            List<CategoricalData> converted_data = ConvertSeriesDataType<CategoricalData>(data);
             foreach (CategoricalData item in converted_data)
             {
                 series.Slices.Add(new PieSlice(item.Category, (double)item.Value)

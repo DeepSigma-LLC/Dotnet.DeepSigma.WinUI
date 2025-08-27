@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,22 +15,18 @@ namespace DeepSigma.WinUI.Charting.DataModels
         /// <summary>
         /// The category label of the data point.
         /// </summary>
-        public string? Category { get; set; }
+        public required string Category { get; set; }
         /// <summary>
         /// The numerical value associated with the category.
         /// </summary>
-        public double Value { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CategoricalData"/> class.
-        /// </summary>
-        public CategoricalData() { }
+        public required double Value { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CategoricalData"/> class with specified values.
         /// </summary>
         /// <param name="category"></param>
         /// <param name="value"></param>
+        [SetsRequiredMembers]
         public CategoricalData(string category, double value)
         {
             Category = category;

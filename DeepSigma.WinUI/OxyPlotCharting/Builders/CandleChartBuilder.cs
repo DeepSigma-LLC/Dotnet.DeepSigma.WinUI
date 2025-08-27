@@ -15,7 +15,7 @@ namespace DeepSigma.WinUI.OxyPlotCharting.Builders
     {
         public FinancialChartType Type => FinancialChartType.CandleStick;
 
-        void IFinancialChartBuilder.AddSeries<D>(PlotModel plot, IChartSeriesAbstract<D> series)
+        void IFinancialChartBuilder.AddSeries(PlotModel plot, IChartSeriesAbstract series)
         {
             CandleStickSeries oxy_series = (CandleStickSeries)OxyPlotUtilities.GetSeries(Type);
 
@@ -26,16 +26,14 @@ namespace DeepSigma.WinUI.OxyPlotCharting.Builders
             oxy_series.XAxisKey = series.PrimaryAxis.Key;
             oxy_series.YAxisKey = series.SecondardyAxis.Key;
 
-
             LoadSeries(oxy_series, series.Data.GetAllDataPoints());
-
 
             plot.Series.Add(oxy_series);
         }
 
-        private static void LoadSeries<D>(CandleStickSeries series, List<D> data) where D : IDataModel
+        private static void LoadSeries(CandleStickSeries series, List<IDataModel> data)
         {
-            List<CandleData> converted_data = ConvertSeriesDataType<D, CandleData>(data);
+            List<CandleData> converted_data = ConvertSeriesDataType<CandleData>(data);
             foreach (CandleData item in converted_data)
             {
                 series.Items.Add(new HighLowItem

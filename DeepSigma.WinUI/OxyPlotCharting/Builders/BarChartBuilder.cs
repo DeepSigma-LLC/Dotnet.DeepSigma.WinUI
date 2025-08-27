@@ -15,7 +15,7 @@ namespace DeepSigma.WinUI.OxyPlotCharting.Builders
     {
         public CategoricalChartType Type => CategoricalChartType.Bar;
 
-        void ICategoricalChartBuilder.AddSeries<D>(PlotModel plot, IChartSeriesAbstract<D> series)
+        void ICategoricalChartBuilder.AddSeries(PlotModel plot, IChartSeriesAbstract series)
         {
             BarSeries oxy_series = (BarSeries)OxyPlotUtilities.GetSeries(Type);
 
@@ -29,9 +29,9 @@ namespace DeepSigma.WinUI.OxyPlotCharting.Builders
             plot.Series.Add(oxy_series);
         }
 
-        private static void LoadSeries<D>(BarSeries series, List<D> data) where D : IDataModel
+        private static void LoadSeries(BarSeries series, List<IDataModel> data)
         {
-            List<CategoricalData> converted_data = ConvertSeriesDataType<D, CategoricalData>(data);
+            List<CategoricalData> converted_data = ConvertSeriesDataType<CategoricalData>(data);
             for (int i = 0; i < data.Count; i++)
             {
                 series.Items.Add(new BarItem { Value = (double)converted_data[i].Value, CategoryIndex = i });

@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 namespace DeepSigma.WinUI.Charting.DataModels
 {
     /// <summary>
-    /// Marker interface for data models used in various data model types.
+    /// Marker interface for data models used in charting components.
     /// </summary>
     public interface IDataModel
     {
-
     }
 }

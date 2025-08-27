@@ -13,7 +13,7 @@ namespace DeepSigma.WinUI.Charting
     /// <summary>
     /// Represents a series of data points in a chart.
     /// </summary>
-    public abstract class ChartSeriesAbstract<T> : IChartSeriesAbstract<T> where T : IDataModel
+    public abstract class ChartSeriesAbstract : IChartSeriesAbstract
     {
         /// <summary>
         /// The name of the data series.
@@ -30,10 +30,6 @@ namespace DeepSigma.WinUI.Charting
         /// </summary>
         public bool Interpolated { get; set; } = false;
 
-        /// <summary>
-        /// The collection of data points in the series.
-        /// </summary>
-        public DataSeries<T> Data { get; set; } = new();
 
         /// <summary>
         /// The primary axis.
@@ -49,5 +45,10 @@ namespace DeepSigma.WinUI.Charting
         /// The third axis used for 3D charts. Default value is null.
         /// </summary>
         public IAxis? TertiaryAxis { get; set; }
+
+        /// <summary>
+        /// The data series containing the data points.
+        /// </summary>
+        public DataSeries<IDataModel> Data { get; set; } = new DataSeries<IDataModel>(); 
     }
 }

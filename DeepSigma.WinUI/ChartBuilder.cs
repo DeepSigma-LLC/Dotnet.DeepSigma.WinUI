@@ -52,42 +52,34 @@ namespace DeepSigma.WinUI
         public PlotModel Build<A>(IChart<A> chart) where A : IAxis
         {
             PlotModel plot = OxyPlotUtilities.CreatePlot(chart);
-            OxyPlotUtilities.AddAxesToPlot(plot, chart);
-            foreach (IChartSeriesAbstract<IDataModel> series in chart.GetSeries())
+            OxyPlotUtilities.AddAxesToPlot(plot, chart, chart.GetCategoricalLabels());
+            foreach (IChartSeriesAbstract series in chart.GetSeries())
             {
-                if(series.GetType() == typeof(ChartDataSeries))
+                switch (series)
                 {
-                    ChartDataSeries casted_series = (ChartDataSeries)series;
-                    if (!_builders.TryGetValue(casted_series.ChartType, out var builder))
-                    {
-                        throw new InvalidOperationException($"No builder registered for {casted_series.ChartType}");
-                    }
-
-                    builder.AddSeries(plot, series);
-                }
-                else if (series.GetType() == typeof(ChartCategoricalSeries))
-                {
-                    ChartCategoricalSeries casted_series = (ChartCategoricalSeries)series;
-                    if (!_category_builders.TryGetValue(casted_series.ChartType, out var builder))
-                    {
-                        throw new InvalidOperationException($"No builder registered for {casted_series.ChartType}");
-                    }
-
-                    builder.AddSeries(plot, series);
-                }
-                else if (series.GetType() == typeof(ChartFinancialSeries))
-                {
-                    ChartFinancialSeries casted_series = (ChartFinancialSeries)series;
-                    if (!_finance_builders.TryGetValue(casted_series.ChartType, out var builder))
-                    {
-                        throw new InvalidOperationException($"No builder registered for {casted_series.ChartType}");
-                    }
-
-                    builder.AddSeries(plot, series);
-                }
-                else
-                {
-                    throw new NotImplementedException("Chart series build is not yet implemented.");
+                    case ChartDataSeries data:
+                        if (!_builders.TryGetValue(data.ChartType, out var builder))
+                        {
+                            throw new InvalidOperationException($"No builder registered for {data.ChartType}");
+                        }
+                        builder.AddSeries(plot, series);
+                        break;
+                    case ChartCategoricalSeries data:
+                        if (!_category_builders.TryGetValue(data.ChartType, out var builder_category))
+                        {
+                            throw new InvalidOperationException($"No builder registered for {data.ChartType}");
+                        }
+                        builder_category.AddSeries(plot, series);
+                        break;
+                    case ChartFinancialSeries data:
+                        if (!_finance_builders.TryGetValue(data.ChartType, out var builder_finance))
+                        {
+                            throw new InvalidOperationException($"No builder registered for {data.ChartType}");
+                        }
+                        builder_finance.AddSeries(plot, series);
+                        break;
+                    default:
+                        throw new NotSupportedException(series.GetType().Name);
                 }
 
             }

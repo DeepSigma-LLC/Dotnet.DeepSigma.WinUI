@@ -26,6 +26,6 @@ namespace DeepSigma.WinUI.OxyPlotCharting
         /// <param name="plot"></param>
         /// <param name="series"></param>
         /// <returns></returns>
-        void AddSeries<D>(PlotModel plot, IChartSeriesAbstract<D> series) where D: IDataModel;
+        void AddSeries(PlotModel plot, IChartSeriesAbstract series);
     }
 }

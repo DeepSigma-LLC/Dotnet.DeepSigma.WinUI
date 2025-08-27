@@ -13,7 +13,7 @@ namespace DeepSigma.WinUI.Charting
     /// <summary>
     /// Represents a series of data points in a chart.
     /// </summary>
-    public class ChartFinancialSeries : ChartSeriesAbstract<CandleData>, IChartSeriesAbstract<CandleData>
+    public class ChartFinancialSeries : ChartSeriesAbstract, IChartSeriesAbstract
     {
         /// <summary>
         /// Gets or sets the type of the chart series.

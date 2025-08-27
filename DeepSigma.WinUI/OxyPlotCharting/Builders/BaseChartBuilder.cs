@@ -11,12 +11,11 @@ namespace DeepSigma.WinUI.OxyPlotCharting.Builders
     internal abstract class BaseChartBuilder
     {
         /// <summary>
-        /// 
+        /// Converts data type of series.
         /// </summary>
-        /// <typeparam name="D"></typeparam>
         /// <typeparam name="V"></typeparam>
         /// <exception cref="InvalidCastException"></exception>
-        protected static List<V> ConvertSeriesDataType<D, V>(List<D> data) where D : IDataModel where V : IDataModel
+        protected static List<V> ConvertSeriesDataType<V>(List<IDataModel> data) where V : IDataModel
         {
             return data.Cast<V>().ToList();
         }

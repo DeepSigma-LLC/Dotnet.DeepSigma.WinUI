@@ -18,7 +18,7 @@ namespace DeepSigma.WinUI.Charting.Interfaces
         /// <summary>
         /// Gets the collection of data series to be plotted on the chart.
         /// </summary>
-        List<IChartSeriesAbstract<IDataModel>> Series { get; init; }
+        List<IChartSeriesAbstract> Series { get; init; }
 
         /// <summary>
         /// Gets or sets a value indicating whether to display the chart legend.
@@ -34,6 +34,13 @@ namespace DeepSigma.WinUI.Charting.Interfaces
         /// Retrieves the series of a specific data model type.
         /// </summary>
         /// <returns></returns>
-        List<IChartSeriesAbstract<IDataModel>> GetSeries();
+        List<IChartSeriesAbstract> GetSeries();
+
+
+        /// <summary>
+        /// Retrieves categorical labels for axes that use categorical data.
+        /// </summary>
+        /// <returns></returns>
+        Dictionary<string, string[]> GetCategoricalLabels();
     }
 }

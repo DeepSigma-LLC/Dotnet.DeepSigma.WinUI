@@ -33,11 +33,18 @@ namespace DeepSigma.WinUI.OxyPlotCharting
             return plot;
         }
 
-        internal static void AddAxesToPlot<A>(PlotModel plot, IChart<A> chart) where A : IAxis
+        internal static void AddAxesToPlot<A>(PlotModel plot, IChart<A> chart, Dictionary<string, string[]>? categorical_labels = null) where A : IAxis
         {
             foreach (A ax in chart.Axes.GetAllAxes())
             {
                 var axis = CreateAxes(ax);
+                
+                if(ax.AxisType == AxisType.Categorical && categorical_labels is not null)
+                {
+                    categorical_labels.TryGetValue(ax.Key, out string[]? labels);
+                    ((CategoryAxis)axis).Labels.AddRange(labels ?? []);
+                }
+
                 plot.Axes.Add(axis);
             }
         }
