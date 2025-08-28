@@ -1,4 +1,5 @@
 ﻿using DeepSigma.WinUI.Charting.DataModels;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace DeepSigma.WinUI.Charting.Interfaces
@@ -8,9 +9,7 @@ namespace DeepSigma.WinUI.Charting.Interfaces
         Color Color { get; set; }
         DataSeries<IDataModel> Data { get; set; }
         bool Interpolated { get; set; }
-        IAxis PrimaryAxis { get; set; }
-        IAxis SecondardyAxis { get; set; }
         string SeriesName { get; set; }
-        IAxis? TertiaryAxis { get; set; }
+        SortedList<int, IAxis> Axes {get;set;}
     }
 }

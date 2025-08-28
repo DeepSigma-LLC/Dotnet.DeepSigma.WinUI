@@ -41,17 +41,22 @@ namespace DeepSigma.WinUI.Charting
         public Dictionary<string, string[]> GetCategoricalLabels()
         {
             Dictionary<string, string[]> results = [];
+            foreach (T axis in Axes.GetAllAxes())
+            {
+                results.Add(axis.Key, []);
+            }
 
             foreach(IChartSeriesAbstract data_series in GetSeries())
             {
-                if(data_series.SecondardyAxis.AxisType == AxisType.Categorical)
+                foreach(var axis in data_series.Axes)
                 {
-                    string key = data_series.SecondardyAxis.Key;
-                    List<string> category_labels = data_series.Data.GetAllDataPoints().Select(x => ((CategoricalData)x).Category).ToList();
-                    
-                    if (results.ContainsKey(key) == false)
+                    if(axis.Value.AxisType == AxisType.Categorical && results.ContainsKey(axis.Value.Key))
                     {
-                        results[key] = category_labels.ToArray();
+                        results[axis.Value.Key] = data_series.Data.GetAllDataPoints()
+                            .OfType<CategoricalData>()
+                            .Select(d => d.Category)
+                            .Distinct()
+                            .ToArray();
                     }
                 }
             }

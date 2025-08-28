@@ -30,21 +30,10 @@ namespace DeepSigma.WinUI.Charting
         /// </summary>
         public bool Interpolated { get; set; } = false;
 
-
         /// <summary>
-        /// The primary axis.
+        /// The collection of axes. The key element is the ordered Id and the value is the axis definition.
         /// </summary>
-        public required IAxis PrimaryAxis { get; set; }
-
-        /// <summary>
-        /// The secondard axis.
-        /// </summary>
-        public required IAxis SecondardyAxis { get; set; }
-
-        /// <summary>
-        /// The third axis used for 3D charts. Default value is null.
-        /// </summary>
-        public IAxis? TertiaryAxis { get; set; }
+        public SortedList<int, IAxis> Axes { get; set; } = [];
 
         /// <summary>
         /// The data series containing the data points.

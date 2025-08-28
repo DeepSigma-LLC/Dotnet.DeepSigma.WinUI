@@ -23,8 +23,9 @@ namespace DeepSigma.WinUI.OxyPlotCharting.Builders
             oxy_series.MarkerType = MarkerType.Circle;
             oxy_series.Color = OxyPlotUtilities.GetOxyColor(series.Color);
             oxy_series.MarkerType = MarkerType.Circle;
-            oxy_series.XAxisKey = series.PrimaryAxis.Key;
-            oxy_series.YAxisKey = series.SecondardyAxis.Key;
+            oxy_series.XAxisKey = series.Axes[0].Key;
+            oxy_series.YAxisKey = series.Axes[1].Key;
+
             LoadSeries(oxy_series, series.Data.GetAllDataPoints());
 
             plot.Series.Add(oxy_series);

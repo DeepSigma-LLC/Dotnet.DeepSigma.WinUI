@@ -20,8 +20,8 @@ namespace DeepSigma.WinUI.OxyPlotCharting.Builders
             PieSeries oxy_series = (PieSeries)OxyPlotUtilities.GetSeries(Type);
 
             oxy_series.Title = series.SeriesName;
-            oxy_series.LabelField = series.PrimaryAxis.Key;
-            oxy_series.ValueField = series.SecondardyAxis.Key;
+            oxy_series.LabelField = series.Axes[0].Key;
+            oxy_series.ValueField = series.Axes[1].Key;
 
             LoadSeries(oxy_series, series.Data.GetAllDataPoints());
 
