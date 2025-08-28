@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OxyPlot;
-using DeepSigma.WinUI.Charting.Enum;
-using DeepSigma.WinUI.Charting;
+using DeepSigma.Charting.Enum;
+using DeepSigma.Charting;
 using DeepSigma.WinUI.OxyPlotCharting.Builders;
 using DeepSigma.WinUI.OxyPlotCharting;
-using DeepSigma.WinUI.Charting.DataModels;
-using DeepSigma.WinUI.Charting.Interfaces;
+using DeepSigma.Charting.Interfaces;
 
 namespace DeepSigma.WinUI
 {
@@ -29,7 +25,6 @@ namespace DeepSigma.WinUI
         /// </summary>
         /// <param name="builder"></param>
         internal void Register(IDataChartBuilder builder) => _builders[builder.Type] = builder;
-
 
         /// <summary>
         /// Registers a new chart builder for a specific ChartType.

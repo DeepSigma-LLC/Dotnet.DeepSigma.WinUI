@@ -1,13 +1,10 @@
-﻿using DeepSigma.WinUI.Charting.DataModels;
-using DeepSigma.WinUI.Charting.Enum;
-using DeepSigma.WinUI.Charting.Interfaces;
+﻿using DeepSigma.Charting.Models;
+using DeepSigma.Charting.Enum;
+using DeepSigma.Charting.Interfaces;
 using OxyPlot;
 using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DeepSigma.WinUI.OxyPlotCharting.Builders
 {

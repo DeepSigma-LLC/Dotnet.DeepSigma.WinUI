@@ -1,6 +1,4 @@
-﻿using DeepSigma.WinUI.Charting;
-using DeepSigma.WinUI.Charting.DataModels;
-using DeepSigma.WinUI.Charting.Enum;
+﻿using DeepSigma.Charting.Models;
 using OxyPlot;
 using System;
 using System.Collections.Generic;

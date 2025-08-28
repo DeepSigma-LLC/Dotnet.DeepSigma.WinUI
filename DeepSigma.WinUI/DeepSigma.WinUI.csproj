@@ -8,7 +8,7 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Title>DeepSigma.WinUI</Title>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.0.0.26</Version>
+    <Version>1.0.1.0</Version>
     <Authors>DeepSigma LLC</Authors>
     <Description>WinUI package library.</Description>
     <PackageProjectUrl>https://github.com/DeepSigma-LLC/Dotnet.DeepSigma.WinUI.git</PackageProjectUrl>
@@ -21,6 +21,7 @@
     <None Remove="TableViewControl.xaml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="DeepSigma.Charting" Version="1.0.0.1" />
     <PackageReference Include="H.OxyPlot.WinUI" Version="0.9.30" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.4948" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250606001" />
