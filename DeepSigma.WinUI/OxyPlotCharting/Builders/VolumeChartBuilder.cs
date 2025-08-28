@@ -11,25 +11,23 @@ using System.Threading.Tasks;
 
 namespace DeepSigma.WinUI.OxyPlotCharting.Builders
 {
-    internal class CandleWithVolumeChartBuilder : BaseChartBuilder, IFinancialChartBuilder
+    internal class VolumeChartBuilder : BaseChartBuilder, IFinancialChartBuilder
     {
-        public FinancialChartType Type => FinancialChartType.CandleStickAndVolume;
+        public FinancialChartType Type => FinancialChartType.Volume;
 
         void IFinancialChartBuilder.AddSeries(PlotModel plot, IChartSeriesAbstract series)
         {
-            VolumeSeries oxy_series = (VolumeSeries)OxyPlotUtilities.GetSeries(Type);
+            VolumeSeries volume_series = (VolumeSeries)OxyPlotUtilities.GetSeries(Type);
+            volume_series.VolumeStyle = VolumeStyle.PositiveNegative;
+            volume_series.XAxisKey = series.Axes[0].Key;
+            volume_series.YAxisKey = series.Axes[1].Key;
 
-            oxy_series.Title = series.SeriesName;
-            oxy_series.VolumeStyle = VolumeStyle.PositiveNegative;
-            oxy_series.XAxisKey = series.Axes[0].Key;
-            oxy_series.YAxisKey = series.Axes[1].Key;
+            LoadSeries(volume_series, series.Data.GetAllDataPoints());
 
-            LoadSeries(oxy_series, series.Data.GetAllDataPoints());
-
-            plot.Series.Add(oxy_series);
+            plot.Series.Add(volume_series);
         }
 
-        private static void LoadSeries(VolumeSeries series, List<IDataModel> data) 
+        private static void LoadSeries(VolumeSeries series, List<IDataModel> data)
         {
             List<CandleData> converted_data = ConvertSeriesDataType<CandleData>(data);
             foreach (CandleData item in converted_data)
@@ -46,6 +44,5 @@ namespace DeepSigma.WinUI.OxyPlotCharting.Builders
                 });
             }
         }
-
     }
 }

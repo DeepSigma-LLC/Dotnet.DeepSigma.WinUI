@@ -20,11 +20,12 @@ namespace DeepSigma.WinUI.OxyPlotCharting.Builders
             CandleStickSeries oxy_series = (CandleStickSeries)OxyPlotUtilities.GetSeries(Type);
 
             oxy_series.Title = series.SeriesName;
-            oxy_series.Color = OxyPlotUtilities.GetOxyColor(series.Color);
+            //oxy_series.Color = OxyPlotUtilities.GetOxyColor(series.Color);
             oxy_series.DecreasingColor = OxyColors.Red;
             oxy_series.IncreasingColor = OxyColors.Green;
             oxy_series.XAxisKey = series.Axes[0].Key;
             oxy_series.YAxisKey = series.Axes[1].Key;
+            oxy_series.CandleWidth = 0.5;
 
             LoadSeries(oxy_series, series.Data.GetAllDataPoints());
 

@@ -39,7 +39,7 @@ namespace DeepSigma.WinUI.OxyPlotCharting
             {
                 var axis = CreateAxes(ax);
                 
-                if(ax.AxisType == AxisType.Categorical && categorical_labels is not null)
+                if(ax.AxisType == AxisType.Categorical && categorical_labels is not null && categorical_labels.Count >= 1)
                 {
                     categorical_labels.TryGetValue(ax.Key, out string[]? labels);
                     ((CategoryAxis)axis).Labels.AddRange(labels ?? []);
@@ -98,7 +98,7 @@ namespace DeepSigma.WinUI.OxyPlotCharting
             switch (chart_type)
             {
                 case FinancialChartType.CandleStick: return new CandleStickSeries();
-                case FinancialChartType.CandleStickAndVolume: return new VolumeSeries();
+                case FinancialChartType.Volume: return new VolumeSeries();
                 default:
                     throw new NotImplementedException();
             }
@@ -116,13 +116,16 @@ namespace DeepSigma.WinUI.OxyPlotCharting
             oxy_axis.Title = axis.Title;
             oxy_axis.MajorGridlineStyle = ConvertLineStyle(axis.MajorGridlineStyle);
             oxy_axis.MinorGridlineStyle = ConvertLineStyle(axis.MinorGridlineStyle);
+            oxy_axis.StartPosition = axis.StartLocation;
+            oxy_axis.EndPosition = axis.EndLocation;
+            oxy_axis.IsPanEnabled = axis.IsPanEnabled;
+            oxy_axis.IsZoomEnabled = axis.IsZoomEnabled;
 
             Axis2D? axis2D = axis as Axis2D;
             if (axis2D is not null)
             {
                 oxy_axis.Position = ConvertAxisPosition(axis2D.AxisPosition);
             }
-
 
             if (!double.IsNaN(axis.Minimum))
             {
@@ -168,6 +171,7 @@ namespace DeepSigma.WinUI.OxyPlotCharting
                 ChartLineStyle.Dot => LineStyle.Dot,
                 ChartLineStyle.DashDot => LineStyle.DashDot,
                 ChartLineStyle.DashDashDot => LineStyle.DashDashDot,
+                ChartLineStyle.None => LineStyle.None,
                 _ => LineStyle.Solid,
             };
         }

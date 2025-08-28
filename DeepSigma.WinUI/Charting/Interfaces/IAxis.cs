@@ -48,5 +48,21 @@ namespace DeepSigma.WinUI.Charting.Interfaces
         /// The title of the axis.
         /// </summary>
         string Title { get; set; }
+        /// <summary>
+        /// The location where the axis starts in the chart (0.0 to 1.0).
+        /// </summary>
+        double StartLocation { get; set; }
+        /// <summary>
+        /// The location where the axis ends in the chart (0.0 to 1.0).
+        /// </summary>
+        double EndLocation { get; set; }
+        /// <summary>
+        /// Indicates whether panning is enabled for the axis.
+        /// </summary>
+        bool IsPanEnabled { get; set; }
+        /// <summary>
+        /// Indicates whether zooming is enabled for the axis.
+        /// </summary>
+        bool IsZoomEnabled { get; set; }
     }
 }

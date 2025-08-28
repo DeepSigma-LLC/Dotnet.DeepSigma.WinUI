@@ -96,11 +96,11 @@ namespace DeepSigma.WinUI
             reg.Register(new LineChartBuilder());
             reg.Register(new BarChartBuilder());
             reg.Register(new ScatterChartBuilder());
-            reg.Register(new CandleChartBuilder());
-            reg.Register(new CandleWithVolumeChartBuilder());
             reg.Register(new AreaChartBuilder());
             reg.Register(new StairStepChartBuilder());
             reg.Register(new PieChartBuilder());
+            reg.Register(new CandleChartBuilder());
+            reg.Register(new VolumeChartBuilder());
             return reg;
         }
     }

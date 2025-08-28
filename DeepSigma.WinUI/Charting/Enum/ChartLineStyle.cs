@@ -30,6 +30,10 @@ namespace DeepSigma.WinUI.Charting.Enum
         /// <summary>
         /// A line with two dashes followed by a dot.
         /// </summary>
-        DashDashDot
+        DashDashDot,
+        /// <summary>
+        /// No line is drawn.
+        /// </summary>
+        None
     }
 }

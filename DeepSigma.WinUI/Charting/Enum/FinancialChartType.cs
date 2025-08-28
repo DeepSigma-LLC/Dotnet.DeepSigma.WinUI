@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace DeepSigma.WinUI.Charting.Enum
 {
+    /// <summary>
+    /// Defines the type of financial chart.
+    /// </summary>
     public enum FinancialChartType
     {
             /// <summary>
@@ -15,7 +18,7 @@ namespace DeepSigma.WinUI.Charting.Enum
         /// <summary>
         /// A candlestick chart combined with volume bars, which shows price movements along with trading volume.
         /// </summary>
-        CandleStickAndVolume,
+        Volume,
 
     }
 }
