@@ -8,7 +8,7 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Title>DeepSigma.WinUI</Title>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.1.0.0</Version>
+    <Version>1.1.1.0</Version>
     <Authors>DeepSigma LLC</Authors>
     <Description>A general C# WinUI package library.</Description>
     <PackageProjectUrl>https://github.com/DeepSigma-LLC/Dotnet.DeepSigma.WinUI</PackageProjectUrl>
@@ -16,7 +16,7 @@
     <AssemblyVersion>$(Version)</AssemblyVersion>
     <FileVersion>$(Version)</FileVersion>
     <Nullable>enable</Nullable>
-    <PackageIcon>Assets\DeepSigma.png</PackageIcon>
+    <PackageIcon>DeepSigma.png</PackageIcon>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="TableViewControl.xaml" />
@@ -25,7 +25,7 @@
     <None Include="Assets\DeepSigma.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
