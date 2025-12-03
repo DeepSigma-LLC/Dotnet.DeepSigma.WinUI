@@ -54,18 +54,17 @@ internal class OxyPlotUtilities
     /// <param name="chart_type"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    internal static Series GetSeries(DataChartType chart_type)
+    internal static Series GetSeries(DataSeriesChartType chart_type)
     {
-        switch (chart_type)
+        return chart_type switch
         {
-            case DataChartType.Line: return new LineSeries();
-            case DataChartType.Scatter: return new ScatterSeries();
-            case DataChartType.Histogram: return new HistogramSeries();
-            case DataChartType.Area: return new AreaSeries();
-            case DataChartType.StepLine: return new StairStepSeries();
-            default:
-                throw new NotImplementedException();
-        }
+            DataSeriesChartType.Line => new LineSeries(),
+            DataSeriesChartType.Scatter => new ScatterSeries(),
+            DataSeriesChartType.Histogram => new HistogramSeries(),
+            DataSeriesChartType.Area => new AreaSeries(),
+            DataSeriesChartType.StepLine => new StairStepSeries(),
+            _ => throw new NotImplementedException(),
+        };
     }
 
     /// <summary>
@@ -74,16 +73,15 @@ internal class OxyPlotUtilities
     /// <param name="chart_type"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    internal static Series GetSeries(CategoricalChartType chart_type)
+    internal static Series GetSeries(CategoricalSeriesChartType chart_type)
     {
-        switch (chart_type)
+        return chart_type switch
         {
-            case CategoricalChartType.Bar: return new BarSeries();
-            case CategoricalChartType.Pie: return new PieSeries();
-            case CategoricalChartType.Column: return new BarSeries();
-            default:
-                throw new NotImplementedException();
-        }
+            CategoricalSeriesChartType.Bar => new BarSeries(),
+            CategoricalSeriesChartType.Pie => new PieSeries(),
+            CategoricalSeriesChartType.Column => new BarSeries(),
+            _ => throw new NotImplementedException(),
+        };
     }
 
     /// <summary>
@@ -92,15 +90,14 @@ internal class OxyPlotUtilities
     /// <param name="chart_type"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    internal static Series GetSeries(FinancialChartType chart_type)
+    internal static Series GetSeries(FinancialSeriesChartType chart_type)
     {
-        switch (chart_type)
+        return chart_type switch
         {
-            case FinancialChartType.CandleStick: return new CandleStickSeries();
-            case FinancialChartType.Volume: return new VolumeSeries();
-            default:
-                throw new NotImplementedException();
-        }
+            FinancialSeriesChartType.CandleStick => new CandleStickSeries(),
+            FinancialSeriesChartType.Volume => new VolumeSeries(),
+            _ => throw new NotImplementedException(),
+        };
     }
 
     /// <summary>

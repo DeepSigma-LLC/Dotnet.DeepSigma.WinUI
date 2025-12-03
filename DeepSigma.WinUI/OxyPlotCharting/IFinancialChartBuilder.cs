@@ -12,7 +12,7 @@ internal interface IFinancialChartBuilder
     /// <summary>
     /// Gets the type of chart this builder supports.
     /// </summary>
-    FinancialChartType Type { get; }
+    FinancialSeriesChartType Type { get; }
 
     /// <summary>
     /// Builds an OxyPlot PlotModel based on the provided Chart specification.

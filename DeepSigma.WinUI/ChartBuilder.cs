@@ -14,11 +14,11 @@ namespace DeepSigma.WinUI;
 /// </summary>
 public sealed class ChartBuilderRegistry
 {
-    private readonly Dictionary<DataChartType, IDataChartBuilder> _builders = new();
+    private readonly Dictionary<DataSeriesChartType, IDataChartBuilder> _builders = [];
 
-    private readonly Dictionary<CategoricalChartType, ICategoricalChartBuilder> _category_builders = new();
+    private readonly Dictionary<CategoricalSeriesChartType, ICategoricalChartBuilder> _category_builders = [];
 
-    private readonly Dictionary<FinancialChartType, IFinancialChartBuilder> _finance_builders = new();
+    private readonly Dictionary<FinancialSeriesChartType, IFinancialChartBuilder> _finance_builders = [];
 
     /// <summary>
     /// Registers a new chart builder for a specific ChartType.

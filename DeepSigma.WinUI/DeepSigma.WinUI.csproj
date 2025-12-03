@@ -8,24 +8,37 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Title>DeepSigma.WinUI</Title>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.0.1.0</Version>
+    <Version>1.1.0.0</Version>
     <Authors>DeepSigma LLC</Authors>
-    <Description>WinUI package library.</Description>
-    <PackageProjectUrl>https://github.com/DeepSigma-LLC/Dotnet.DeepSigma.WinUI.git</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/DeepSigma-LLC/Dotnet.DeepSigma.WinUI.git</RepositoryUrl>
+    <Description>A general C# WinUI package library.</Description>
+    <PackageProjectUrl>https://github.com/DeepSigma-LLC/Dotnet.DeepSigma.WinUI</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/DeepSigma-LLC/Dotnet.DeepSigma.WinUI</RepositoryUrl>
     <AssemblyVersion>$(Version)</AssemblyVersion>
     <FileVersion>$(Version)</FileVersion>
     <Nullable>enable</Nullable>
+    <PackageIcon>Assets\DeepSigma.png</PackageIcon>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="TableViewControl.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DeepSigma.Charting" Version="1.0.1" />
+    <None Include="Assets\DeepSigma.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="DeepSigma.Charting" Version="1.1.0" />
     <PackageReference Include="H.OxyPlot.WinUI" Version="0.9.30" />
-    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.4948" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250606001" />
-    <PackageReference Include="WinUI.TableView" Version="1.3.2" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.7175" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.251106002" />
+    <PackageReference Include="WinUI.TableView" Version="1.3.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="Assets\DeepSigma.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Page Update="PlotControl.xaml">

@@ -10,7 +10,7 @@ namespace DeepSigma.WinUI.OxyPlotCharting.Builders;
 
 internal class PieChartBuilder : BaseChartBuilder, ICategoricalChartBuilder
 {
-    public CategoricalChartType Type => CategoricalChartType.Pie;
+    public CategoricalSeriesChartType Type => CategoricalSeriesChartType.Pie;
 
     void ICategoricalChartBuilder.AddSeries(PlotModel plot, IChartSeriesAbstract series)
     {

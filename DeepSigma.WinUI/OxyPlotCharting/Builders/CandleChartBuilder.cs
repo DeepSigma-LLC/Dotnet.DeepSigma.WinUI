@@ -10,7 +10,7 @@ namespace DeepSigma.WinUI.OxyPlotCharting.Builders;
 
 internal class CandleChartBuilder : BaseChartBuilder, IFinancialChartBuilder
 {
-    public FinancialChartType Type => FinancialChartType.CandleStick;
+    public FinancialSeriesChartType Type => FinancialSeriesChartType.CandleStick;
 
     void IFinancialChartBuilder.AddSeries(PlotModel plot, IChartSeriesAbstract series)
     {

@@ -12,7 +12,7 @@ internal interface IDataChartBuilder
     /// <summary>
     /// Gets the type of chart this builder supports.
     /// </summary>
-    DataChartType Type { get; }
+    DataSeriesChartType Type { get; }
 
     /// <summary>
     /// Builds an OxyPlot PlotModel based on the provided Chart specification.

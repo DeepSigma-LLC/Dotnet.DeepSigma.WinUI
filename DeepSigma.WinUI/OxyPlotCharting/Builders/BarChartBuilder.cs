@@ -10,7 +10,7 @@ namespace DeepSigma.WinUI.OxyPlotCharting.Builders;
 
 internal class BarChartBuilder : BaseChartBuilder, ICategoricalChartBuilder
 {
-    public CategoricalChartType Type => CategoricalChartType.Bar;
+    public CategoricalSeriesChartType Type => CategoricalSeriesChartType.Bar;
 
     void ICategoricalChartBuilder.AddSeries(PlotModel plot, IChartSeriesAbstract series)
     {

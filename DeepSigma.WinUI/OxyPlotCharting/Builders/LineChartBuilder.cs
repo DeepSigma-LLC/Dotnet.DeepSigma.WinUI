@@ -10,7 +10,7 @@ namespace DeepSigma.WinUI.OxyPlotCharting.Builders;
 
 internal class LineChartBuilder : BaseChartBuilder, IDataChartBuilder
 {
-    public DataChartType Type => DataChartType.Line;
+    public DataSeriesChartType Type => DataSeriesChartType.Line;
 
     void IDataChartBuilder.AddSeries(PlotModel plot, IChartSeriesAbstract series)
     {

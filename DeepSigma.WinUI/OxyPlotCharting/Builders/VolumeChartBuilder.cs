@@ -10,7 +10,7 @@ namespace DeepSigma.WinUI.OxyPlotCharting.Builders;
 
 internal class VolumeChartBuilder : BaseChartBuilder, IFinancialChartBuilder
 {
-    public FinancialChartType Type => FinancialChartType.Volume;
+    public FinancialSeriesChartType Type => FinancialSeriesChartType.Volume;
 
     void IFinancialChartBuilder.AddSeries(PlotModel plot, IChartSeriesAbstract series)
     {

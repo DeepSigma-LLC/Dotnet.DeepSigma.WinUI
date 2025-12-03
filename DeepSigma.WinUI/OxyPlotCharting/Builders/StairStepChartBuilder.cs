@@ -10,7 +10,7 @@ namespace DeepSigma.WinUI.OxyPlotCharting.Builders;
 
 internal class StairStepChartBuilder : BaseChartBuilder, IDataChartBuilder
 {
-    public DataChartType Type => DataChartType.StepLine;
+    public DataSeriesChartType Type => DataSeriesChartType.StepLine;
 
     void IDataChartBuilder.AddSeries(PlotModel plot, IChartSeriesAbstract series)
     {
