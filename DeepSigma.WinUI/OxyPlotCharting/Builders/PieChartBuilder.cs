@@ -17,8 +17,8 @@ internal class PieChartBuilder : BaseChartBuilder, ICategoricalChartBuilder
         PieSeries oxy_series = (PieSeries)OxyPlotUtilities.GetSeries(Type);
 
         oxy_series.Title = series.SeriesName;
-        oxy_series.LabelField = series.Axes[0].Key;
-        oxy_series.ValueField = series.Axes[1].Key;
+        oxy_series.LabelField = series.Axes[0].Key.ToString();
+        oxy_series.ValueField = series.Axes[1].Key.ToString();
 
         LoadSeries(oxy_series, series.Data.GetAllDataPoints());
 

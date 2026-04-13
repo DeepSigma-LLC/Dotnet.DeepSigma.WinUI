@@ -40,7 +40,7 @@ internal class OxyPlotUtilities
             
             if(ax.AxisType == AxisType.Categorical && categorical_labels is not null && categorical_labels.Count >= 1)
             {
-                categorical_labels.TryGetValue(ax.Key, out string[]? labels);
+                categorical_labels.TryGetValue(ax.Key.ToString(), out string[]? labels);
                 ((CategoryAxis)axis).Labels.AddRange(labels ?? []);
             }
 
@@ -108,7 +108,7 @@ internal class OxyPlotUtilities
     internal static Axis CreateAxes<A>(A axis) where A : notnull, IAxis
     {
         Axis oxy_axis = CreateAxis(axis.AxisType);
-        oxy_axis.Key = axis.Key;
+        oxy_axis.Key = axis.Key.ToString();
         oxy_axis.Title = axis.Title;
         oxy_axis.MajorGridlineStyle = ConvertLineStyle(axis.MajorGridlineStyle);
         oxy_axis.MinorGridlineStyle = ConvertLineStyle(axis.MinorGridlineStyle);

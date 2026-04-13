@@ -1,3 +1,4 @@
+using System.Collections;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
@@ -60,6 +61,6 @@ public sealed partial class TableViewControl : UserControl
     /// </summary>
     public void Clear()
     {
-        MyTableView.ItemsSource?.Clear();
+        MyTableView.Items.Clear();
     }
 }

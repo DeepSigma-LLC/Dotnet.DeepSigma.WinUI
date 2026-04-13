@@ -16,8 +16,8 @@ internal class VolumeChartBuilder : BaseChartBuilder, IFinancialChartBuilder
     {
         VolumeSeries volume_series = (VolumeSeries)OxyPlotUtilities.GetSeries(Type);
         volume_series.VolumeStyle = VolumeStyle.PositiveNegative;
-        volume_series.XAxisKey = series.Axes[0].Key;
-        volume_series.YAxisKey = series.Axes[1].Key;
+        volume_series.XAxisKey = series.Axes[0].Key.ToString();
+        volume_series.YAxisKey = series.Axes[1].Key.ToString();
 
         LoadSeries(volume_series, series.Data.GetAllDataPoints());
 

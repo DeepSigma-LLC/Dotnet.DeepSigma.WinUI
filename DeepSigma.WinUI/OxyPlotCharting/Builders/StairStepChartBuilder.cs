@@ -20,8 +20,8 @@ internal class StairStepChartBuilder : BaseChartBuilder, IDataChartBuilder
         oxy_series.MarkerType = MarkerType.Circle;
         oxy_series.Color = OxyPlotUtilities.GetOxyColor(series.Color);
         oxy_series.MarkerType = MarkerType.Circle;
-        oxy_series.XAxisKey = series.Axes[0].Key;
-        oxy_series.YAxisKey = series.Axes[1].Key;
+        oxy_series.XAxisKey = series.Axes[0].Key.ToString();
+        oxy_series.YAxisKey = series.Axes[1].Key.ToString();
 
         LoadSeries(oxy_series, series.Data.GetAllDataPoints());
 

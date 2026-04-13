@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using OxyPlot;
+﻿using DeepSigma.Charting;
 using DeepSigma.Charting.Enum;
-using DeepSigma.Charting;
-using DeepSigma.WinUI.OxyPlotCharting.Builders;
-using DeepSigma.WinUI.OxyPlotCharting;
 using DeepSigma.Charting.Interfaces;
+using DeepSigma.WinUI.OxyPlotCharting;
+using DeepSigma.WinUI.OxyPlotCharting.Builders;
+using OxyPlot;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace DeepSigma.WinUI;
 
@@ -47,7 +49,7 @@ public sealed class ChartBuilderRegistry
     public PlotModel Build<A>(IChart<A> chart) where A : IAxis
     {
         PlotModel plot = OxyPlotUtilities.CreatePlot(chart);
-        OxyPlotUtilities.AddAxesToPlot(plot, chart, chart.GetCategoricalLabels());
+        OxyPlotUtilities.AddAxesToPlot(plot, chart, GetAxisCategoricalLables(chart));
         foreach (IChartSeriesAbstract series in chart.GetSeries())
         {
             switch (series)
@@ -79,6 +81,12 @@ public sealed class ChartBuilderRegistry
 
         }
         return plot;
+    }
+
+    private Dictionary<string, string[]> GetAxisCategoricalLables<A>(IChart<A> chart) where A : IAxis
+    {
+        return chart.GetCategoricalLabels()
+            .ToDictionary(k => k.Key.ToString(), v => v.Value);
     }
 
     /// <summary>

@@ -18,8 +18,8 @@ internal class BarChartBuilder : BaseChartBuilder, ICategoricalChartBuilder
 
         oxy_series.Title = series.SeriesName;
         oxy_series.FillColor = OxyPlotUtilities.GetOxyColor(series.Color);
-        oxy_series.XAxisKey = series.Axes[0].Key;
-        oxy_series.YAxisKey = series.Axes[1].Key;
+        oxy_series.XAxisKey = series.Axes[0].Key.ToString();
+        oxy_series.YAxisKey = series.Axes[1].Key.ToString();
 
         LoadSeries(oxy_series, series.Data.GetAllDataPoints());
 
