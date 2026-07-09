@@ -1,12 +1,11 @@
-﻿
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
-namespace DeepSigma.WinUI;
+namespace DeepSigma.WinUI.Internal;
 
 /// <summary>
 /// Represents an item with properties for display in a table view.
 /// </summary>
-public class Item : INotifyPropertyChanged
+internal class Item : INotifyPropertyChanged
 {
     private string? _name;
     private double _price;
