@@ -51,7 +51,7 @@ public sealed partial class TableViewControl : UserControl
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="view_models"></param>
-    public void BindData<T>(MainViewModel<T> view_models) where T : class
+    public void BindData<T>(ObservableCollectionTableViewModel<T> view_models) where T : class
     {
         MyTableView.ItemsSource = view_models.GetItems();
     }
