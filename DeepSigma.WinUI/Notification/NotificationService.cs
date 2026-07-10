@@ -194,7 +194,7 @@ public static class NotificationService
     /// <param name="message"></param>
     /// <param name="options"></param>
     /// <returns></returns>
-    public static async Task ShowContentDialog(XamlRoot xamlRoot, string message, ContentDialogOptions? options = null)
+    public static async Task<ContentDialogResult> ShowContentDialog(XamlRoot xamlRoot, string message, ContentDialogOptions? options = null)
     {
         ContentDialog dialog = new();
 
@@ -207,7 +207,7 @@ public static class NotificationService
         dialog.DefaultButton = options?.DefaultButton ?? ContentDialogButton.Primary;
         dialog.Content = message;
         var result = await dialog.ShowAsync();
-        return;
+        return result;
     }
 
     /// <summary>
@@ -238,7 +238,7 @@ public static class NotificationService
     /// await NotificationService.ShowContentDialog(this.XamlRoot, content, options);
     /// </code>
     /// </remarks>
-    public static async Task ShowContentDialog(XamlRoot xamlRoot, object content, ContentDialogOptions? options = null)
+    public static async Task<ContentDialogResult> ShowContentDialog(XamlRoot xamlRoot, object content, ContentDialogOptions? options = null)
     {
         ContentDialog dialog = new();
 
@@ -252,6 +252,6 @@ public static class NotificationService
         dialog.DefaultButton = options?.DefaultButton ?? ContentDialogButton.Primary;
         dialog.Content = content;
         var result = await dialog.ShowAsync();
-        return;
+        return result;
     }
 }

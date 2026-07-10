@@ -17,7 +17,7 @@ namespace DeepSigma.WinUI;
 /// notifications without defining a dedicated view model property.
 /// <para>C# usage:</para>
 /// <code>
-/// public PropertyChangeNotificationWrapper&lt;string&gt; ShowHideToolTip { get; } = new("Hide");
+/// public ObservableProperty&lt;string&gt; ShowHideToolTip { get; } = new("Hide");
 ///
 /// ShowHideToolTip.Value = "Show";
 /// </code>
@@ -27,7 +27,7 @@ namespace DeepSigma.WinUI;
 /// &lt;Button ToolTipService.ToolTip="{x:Bind ShowHideToolTip.Value, Mode=OneWay}" /&gt;
 /// </code>
 /// </remarks>
-public partial class PropertyChangeNotificationWrapper<T> : INotifyPropertyChanged where T : notnull
+public partial class ObservableProperty<T> : INotifyPropertyChanged where T : notnull
 {
     /// <summary>
     /// Property changed event that is raised when the <see cref="Value" /> property changes.
@@ -38,11 +38,11 @@ public partial class PropertyChangeNotificationWrapper<T> : INotifyPropertyChang
         => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PropertyChangeNotificationWrapper{T}" /> class with the specified initial value.
+    /// Initializes a new instance of the <see cref="ObservableProperty{T}" /> class with the specified initial value.
     /// </summary>
     /// <param name="value"></param>
     [SetsRequiredMembers]
-    public PropertyChangeNotificationWrapper(T value)
+    public ObservableProperty(T value)
     {
         Value = value;
     }
@@ -71,5 +71,5 @@ public partial class PropertyChangeNotificationWrapper<T> : INotifyPropertyChang
     /// Defines an implicit conversion from PropertyChangeNotificationWrapper<T> to T, allowing the wrapper to be used directly as its underlying value type.
     /// </summary>
     /// <param name="wrapper">The wrapper instance to convert.</param>
-    public static implicit operator T(PropertyChangeNotificationWrapper<T> wrapper) => wrapper.Value;
+    public static implicit operator T(ObservableProperty<T> wrapper) => wrapper.Value;
 }
