@@ -72,4 +72,10 @@ public partial class ObservableProperty<T> : INotifyPropertyChanged where T : no
     /// </summary>
     /// <param name="wrapper">The wrapper instance to convert.</param>
     public static implicit operator T(ObservableProperty<T> wrapper) => wrapper.Value;
+
+    /// <summary>
+    /// Defines an implicit conversion from T to PropertyChangeNotificationWrapper<T>, allowing a value of type T to be automatically wrapped in a PropertyChangeNotificationWrapper<T> instance.
+    /// </summary>
+    /// <param name="value">The value to wrap.</param>
+    public static implicit operator ObservableProperty<T>(T value) => new(value);
 }
