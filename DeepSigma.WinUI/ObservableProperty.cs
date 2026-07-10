@@ -75,5 +75,5 @@ public partial class ObservableProperty<T> : INotifyPropertyChanged where T : no
 
 
     /// Was going to enable implicit conversion from T to ObservableProperty<T> but decided against it since setting a value my change the referance object which could cause issues with binding. Instead, you can use the constructor to create a new ObservableProperty<T> instance with the desired value.
-    //  public static implicit operator ObservableProperty<T>(T value) => new(value);
+    //public static implicit operator ObservableProperty<T>(T value) => new(value);
 }

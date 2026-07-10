@@ -21,7 +21,7 @@ public static class StoragePicker
         /// <summary>
         /// The title of the file picker dialog.
         /// </summary>
-        public string? Title { get; init; } = "Pick a file";
+        public string? Title { get; init; }
         /// <summary>
         /// The view mode of the file picker (e.g., list or thumbnail).
         /// </summary>
@@ -29,7 +29,7 @@ public static class StoragePicker
         /// <summary>
         /// The text displayed on the commit button of the file picker dialog.
         /// </summary>
-        public string? CommitButtonText { get; init; } = "Pick File";
+        public string? CommitButtonText { get; init; }
 
         /// <summary>
         /// The suggested start location for the file picker (e.g., DocumentsLibrary, Desktop, etc.).
@@ -49,7 +49,7 @@ public static class StoragePicker
     /// <param name="sender">The UI element that triggered the file picker.</param>
     /// <param name="options">Options for configuring the file picker behavior.</param>
     /// <returns>The result of the file picker operation.</returns>
-    public static async Task<PickFileResult?> PickSingleFile(Control sender, StoragePickerOptions? options = null)
+    public static async Task<PickFileResult?> PickSingleFileAsync(Control sender, StoragePickerOptions? options = null)
     {
         options = options ?? new StoragePickerOptions();
         sender.IsEnabled = false;
@@ -76,7 +76,7 @@ public static class StoragePicker
     /// <param name="sender">The UI element that triggered the file picker.</param>
     /// <param name="options">Options for configuring the file picker behavior.</param>
     /// <returns>The result of the file picker operation.</returns>
-    public static async Task<IReadOnlyList<PickFileResult>?> PickMultipleFiles(Control sender, StoragePickerOptions? options = null)
+    public static async Task<IReadOnlyList<PickFileResult>?> PickMultipleFilesAsync(Control sender, StoragePickerOptions? options = null)
     {
         options = options ?? new StoragePickerOptions();
         sender.IsEnabled = false;
@@ -104,7 +104,7 @@ public static class StoragePicker
     /// <param name="sender">The UI element that triggered the folder picker.</param>
     /// <param name="options">Options for configuring the folder picker behavior.</param>
     /// <returns>The result of the folder picker operation.</returns>
-    public static async Task<PickFolderResult?> PickFolder(Control sender, StoragePickerOptions? options = null)
+    public static async Task<PickFolderResult?> PickFolderAsync(Control sender, StoragePickerOptions? options = null)
     {
         options = options ?? new StoragePickerOptions();
         sender.IsEnabled = false;
