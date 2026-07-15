@@ -8,7 +8,7 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Title>DeepSigma.WinUI</Title>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.9.3.0</Version>
+    <Version>1.11.0.0</Version>
     <Authors>DeepSigma LLC</Authors>
     <Description>A general C# WinUI package library.</Description>
     <PackageProjectUrl>https://github.com/DeepSigma-LLC/Dotnet.DeepSigma.WinUI</PackageProjectUrl>
@@ -21,8 +21,9 @@
     <None Remove="TableViewControl.xaml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="DeepSigma.Application" Version="1.0.0" />
     <PackageReference Include="DeepSigma.Charting" Version="1.2.0" />
-    <PackageReference Include="DeepSigma.Core" Version="1.7.3" />
+    <PackageReference Include="DeepSigma.Core" Version="1.9.0" />
     <PackageReference Include="H.OxyPlot.WinUI" Version="0.9.30" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.28000.2270" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="2.2.0" />
@@ -51,6 +52,18 @@
       <PackagePath>lib\net10.0-windows10.0.19041\DeepSigma.WinUI\Assets\DeepSigma.png</PackagePath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Controls\Card.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Controls\Divider.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Controls\SettingsCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
 </Project>

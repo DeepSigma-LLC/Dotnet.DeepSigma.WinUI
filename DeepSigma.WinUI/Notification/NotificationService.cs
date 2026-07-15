@@ -200,7 +200,7 @@ public static class NotificationService
 
         // XamlRoot must be set in the case of a ContentDialog running in a Desktop app
         dialog.XamlRoot = xamlRoot;
-        dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+        dialog.Style = Microsoft.UI.Xaml.Application.Current.Resources["DefaultContentDialogStyle"] as Style;
         dialog.Title = options?.Title;
         dialog.PrimaryButtonText = options?.PrimaryButtonText;
         dialog.CloseButtonText = options?.CloseButtonText;
@@ -244,7 +244,7 @@ public static class NotificationService
 
         // XamlRoot must be set in the case of a ContentDialog running in a Desktop app
         dialog.XamlRoot = xamlRoot;
-        dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+        dialog.Style = Microsoft.UI.Xaml.Application.Current.Resources["DefaultContentDialogStyle"] as Style;
         dialog.Title = options?.Title;
         dialog.PrimaryButtonText = options?.PrimaryButtonText;
         dialog.SecondaryButtonText = options?.SecondaryButtonText;
