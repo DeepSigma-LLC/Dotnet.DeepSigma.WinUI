@@ -8,7 +8,7 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Title>DeepSigma.WinUI</Title>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.11.0.0</Version>
+    <Version>1.11.1.0</Version>
     <Authors>DeepSigma LLC</Authors>
     <Description>A general C# WinUI package library.</Description>
     <PackageProjectUrl>https://github.com/DeepSigma-LLC/Dotnet.DeepSigma.WinUI</PackageProjectUrl>
@@ -21,6 +21,7 @@
     <None Remove="TableViewControl.xaml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
     <PackageReference Include="DeepSigma.Application" Version="1.0.0" />
     <PackageReference Include="DeepSigma.Charting" Version="1.2.0" />
     <PackageReference Include="DeepSigma.Core" Version="1.9.0" />
